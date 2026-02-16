@@ -1,0 +1,26 @@
+{
+  "name": "student-activity-hub",
+  "version": "1.0.0",
+  "description": "A centralized web platform for managing college events, clubs, and student engagement.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhavyabhardwaj001/student-activity-hub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/bhavyabhardwaj001/student-activity-hub/issues"
+  },
+  "homepage": "https://github.com/bhavyabhardwaj001/student-activity-hub#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1"
+  }
+}
