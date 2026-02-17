@@ -2,9 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+const eventRoutes = require("./routes/eventRoutes");
+
 const app = express();
 
 app.use(express.json());
+app.use("/api/events", eventRoutes);
+
 
 mongoose
   .connect(process.env.MONGO_URI)
