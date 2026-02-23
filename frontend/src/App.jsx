@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -6,43 +7,40 @@ function App() {
 
   useEffect(() => {
     fetch("http://localhost:5000/api/events")
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => {
         setEvents(data);
         setLoading(false);
       })
-      .catch((error) => {
-        console.error("Error fetching events:", error);
+      .catch((err) => {
+        console.error(err);
         setLoading(false);
       });
   }, []);
 
   return (
     <div>
-      <header style={{ padding: "16px", borderBottom: "1px solid #ddd" }}>
+      <header className="header">
         <h2>Student Activities Hub</h2>
       </header>
 
-      <main style={{ padding: "16px" }}>
+      <main className="container">
         <h3>Upcoming Events</h3>
 
         {loading && <p>Loading events...</p>}
 
-        {!loading && events.length === 0 && <p>No events found.</p>}
+        {!loading && events.length === 0 && <p>No events available.</p>}
 
-        <ul>
-          {events.map((event) => (
-            <li key={event._id} style={{ marginBottom: "12px" }}>
-              <strong>{event.title}</strong>
-              <br />
-              <small>
-                {event.category} |{" "}
-                {new Date(event.date).toLocaleDateString()}
-              </small>
-              <p>{event.description}</p>
-            </li>
-          ))}
-        </ul>
+        {events.map((event) => (
+          <div key={event._id} className="event-card">
+            <h4>{event.title}</h4>
+            <div className="event-meta">
+              {event.category} |{" "}
+              {new Date(event.date).toLocaleDateString()}
+            </div>
+            <div className="event-desc">{event.description}</div>
+          </div>
+        ))}
       </main>
     </div>
   );
