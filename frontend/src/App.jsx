@@ -28,7 +28,7 @@ function App() {
       </header>
 
       <main className="container">
-        <h3>Upcoming Events</h3>
+        <h3 className="section-title">Upcoming Events</h3>
 
         {loading && <p>Loading events...</p>}
 
@@ -44,8 +44,8 @@ function App() {
                   width: "100%",
                   height: "180px",
                   objectFit: "cover",
-                  borderRadius: "6px",
-                  marginBottom: "10px",
+                  borderRadius: "8px",
+                  marginBottom: "12px",
                 }}
               />
             )}
@@ -53,12 +53,14 @@ function App() {
             <h4>{event.title}</h4>
 
             <div className="event-meta">
-  {event.category} | {new Date(event.date).toLocaleDateString()}
-</div>
+              {event.category} | {new Date(event.date).toLocaleDateString()}
+            </div>
 
-<div style={{ fontSize: "13px", color: "#666", marginBottom: "8px" }}>
-  📍 {event.location}
-</div>
+            <div
+              style={{ fontSize: "13px", color: "#666", marginBottom: "8px" }}
+            >
+              📍 {event.location}
+            </div>
 
             <div className="event-desc">{event.description}</div>
           </div>
