@@ -9,7 +9,7 @@ const eventSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: ["Technical", "Cultural", "Sports"],
+      enum: ["Technical", "Cultural", "Sports","Management"],
     },
     date: {
       type: Date,
