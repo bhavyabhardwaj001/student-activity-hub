@@ -35,30 +35,34 @@ function App() {
         {!loading && events.length === 0 && <p>No events available.</p>}
 
         {events.map((event) => (
-  <div key={event._id} className="event-card">
-    {event.imageUrl && (
-      <img
-        src={event.imageUrl}
-        alt={event.title}
-        style={{
-          width: "100%",
-          height: "180px",
-          objectFit: "cover",
-          borderRadius: "6px",
-          marginBottom: "10px",
-        }}
-      />
-    )}
+          <div key={event._id} className="event-card">
+            {event.imageUrl && (
+              <img
+                src={event.imageUrl}
+                alt={event.title}
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  objectFit: "cover",
+                  borderRadius: "6px",
+                  marginBottom: "10px",
+                }}
+              />
+            )}
 
-    <h4>{event.title}</h4>
+            <h4>{event.title}</h4>
 
-    <div className="event-meta">
-      {event.category} | {new Date(event.date).toLocaleDateString()}
-    </div>
+            <div className="event-meta">
+  {event.category} | {new Date(event.date).toLocaleDateString()}
+</div>
 
-    <div className="event-desc">{event.description}</div>
-  </div>
-))}
+<div style={{ fontSize: "13px", color: "#666", marginBottom: "8px" }}>
+  📍 {event.location}
+</div>
+
+            <div className="event-desc">{event.description}</div>
+          </div>
+        ))}
       </main>
     </div>
   );
