@@ -22,6 +22,9 @@ function App() {
     <div>
       <header className="header">
         <h2>Student Activities Hub</h2>
+        <p style={{ margin: "4px 0 0", fontSize: "14px", color: "#ddd" }}>
+          A centralized platform for college events
+        </p>
       </header>
 
       <main className="container">
@@ -35,8 +38,7 @@ function App() {
           <div key={event._id} className="event-card">
             <h4>{event.title}</h4>
             <div className="event-meta">
-              {event.category} |{" "}
-              {new Date(event.date).toLocaleDateString()}
+              {event.category} | {new Date(event.date).toLocaleDateString()}
             </div>
             <div className="event-desc">{event.description}</div>
           </div>
