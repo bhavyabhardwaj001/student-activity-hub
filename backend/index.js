@@ -12,6 +12,10 @@ app.use(express.json());
 // Routes
 const eventRoutes = require("./routes/eventRoutes");
 app.use("/api/events", eventRoutes);
+const clubRoutes = require("./routes/clubRoutes");
+app.use("/api/clubs", clubRoutes);
+const authRoutes = require("./routes/authRoutes");
+app.use("/api/auth", authRoutes);
 
 // Database connection
 mongoose

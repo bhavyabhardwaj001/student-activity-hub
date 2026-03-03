@@ -1,0 +1,63 @@
+const express = require("express");
+const Club = require("../models/club");
+const protect = require("./authMiddleware.js");
+
+const router = express.Router();
+
+
+// CREATE CLUB (Only logged-in user)
+router.post("/", protect, async (req, res) => {
+  try {
+    const { name, description } = req.body;
+
+    const club = await Club.create({
+      name,
+      description,
+      createdBy: req.user.id,
+      members: [req.user.id] // creator automatically member
+    });
+
+    res.json(club);
+  } catch (error) {
+  console.log(error);
+  res.status(500).json({ message: error.message });
+}
+});
+
+
+// GET ALL CLUBS
+router.get("/", async (req, res) => {
+  try {
+    const clubs = await Club.find()
+      .populate("createdBy", "name email")
+      .populate("members", "name email");
+
+    res.json(clubs);
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+
+// JOIN CLUB
+router.post("/:id/join", protect, async (req, res) => {
+  try {
+    const club = await Club.findById(req.params.id);
+
+    if (!club) {
+      return res.status(404).json({ message: "Club not found" });
+    }
+
+    if (!club.members.includes(req.user.id)) {
+      club.members.push(req.user.id);
+      await club.save();
+    }
+
+    res.json({ message: "Joined club successfully ✅" });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+
+module.exports = router;
