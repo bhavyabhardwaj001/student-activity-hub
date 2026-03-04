@@ -1,72 +1,28 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import Events from "./pages/Events";
+import Clubs from "./pages/Clubs";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/api/events")
-      .then((res) => res.json())
-      .then((data) => {
-        setEvents(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, []);
-
   return (
-    <div>
-      <header className="header">
-        <h2>Student Activities Hub</h2>
-        <p style={{ margin: "4px 0 0", fontSize: "14px", color: "#ddd" }}>
-          A centralized platform for college events
-        </p>
-      </header>
+    <BrowserRouter>
+      <Routes>
 
-      <main className="container">
-        <h3 className="section-title">Upcoming Events</h3>
+        <Route path="/" element={<Home />} />
 
-        {loading && <p>Loading events...</p>}
+        <Route path="/events" element={<Events />} />
 
-        {!loading && events.length === 0 && <p>No events available.</p>}
+        <Route path="/clubs" element={<Clubs />} />
 
-        {events.map((event) => (
-          <div key={event._id} className="event-card">
-            {event.imageUrl && (
-              <img
-                src={event.imageUrl}
-                alt={event.title}
-                style={{
-                  width: "100%",
-                  height: "180px",
-                  objectFit: "cover",
-                  borderRadius: "8px",
-                  marginBottom: "12px",
-                }}
-              />
-            )}
+        <Route path="/login" element={<Login />} />
 
-            <h4>{event.title}</h4>
+        <Route path="/register" element={<Register />} />
 
-            <div className="event-meta">
-              {event.category} | {new Date(event.date).toLocaleDateString()}
-            </div>
-
-            <div
-              style={{ fontSize: "13px", color: "#666", marginBottom: "8px" }}
-            >
-              📍 {event.location}
-            </div>
-
-            <div className="event-desc">{event.description}</div>
-          </div>
-        ))}
-      </main>
-    </div>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

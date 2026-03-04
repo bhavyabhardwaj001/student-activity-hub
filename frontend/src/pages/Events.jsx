@@ -1,0 +1,73 @@
+import { useEffect, useState } from "react";
+import "../App.css";
+
+function Events() {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/events")
+      .then((res) => res.json())
+      .then((data) => {
+        setEvents(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <div>
+      <header className="header">
+        <h2>Student Activities Hub</h2>
+        <p style={{ margin: "4px 0 0", fontSize: "14px", color: "#ddd" }}>
+          A centralized platform for college events
+        </p>
+      </header>
+
+      <main className="container">
+        <h3 className="section-title">Upcoming Events</h3>
+
+        {loading && <p>Loading events...</p>}
+
+        {!loading && events.length === 0 && <p>No events available.</p>}
+
+        {events.map((event) => (
+          <div key={event._id} className="event-card">
+            {event.imageUrl && (
+              <img
+                src={event.imageUrl}
+                alt={event.title}
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                  marginBottom: "12px",
+                }}
+              />
+            )}
+
+            <h4>{event.title}</h4>
+
+            <div className="event-meta">
+              {event.category} | {new Date(event.date).toLocaleDateString()}
+            </div>
+
+            <div
+              style={{ fontSize: "13px", color: "#666", marginBottom: "8px" }}
+            >
+              📍 {event.location}
+            </div>
+
+            <div className="event-desc">{event.description}</div>
+          </div>
+        ))}
+      </main>
+    </div>
+  );
+}
+
+export default Events;
