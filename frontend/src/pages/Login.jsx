@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +27,7 @@ function Login() {
       if (res.ok) {
         localStorage.setItem("token", data.token);
         alert("Login successful!");
+        navigate("/events");
       } else {
         alert(data.message || "Login failed");
       }
