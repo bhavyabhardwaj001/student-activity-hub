@@ -56,14 +56,16 @@ const styles = {
     fontWeight: "500",
   },
   logout: {
-    color: "white",
-    textDecoration: "none",
-    fontWeight: "500",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    fontSize: "16px"
-  }
+  color: "white",
+  textDecoration: "none",
+  fontWeight: "500",
+  background: "none",
+  border: "none",
+  cursor: "pointer",
+  fontSize: "inherit",
+  fontFamily: "inherit",
+  padding: "0"
+} 
 };
 
 export default Navbar;
