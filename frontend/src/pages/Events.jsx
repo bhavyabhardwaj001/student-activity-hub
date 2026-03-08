@@ -17,7 +17,38 @@ function Events() {
         setLoading(false);
       });
   }, []);
+  const handleRegister = async (eventId) => {
+    const token = localStorage.getItem("token");
 
+    if (!token) {
+      alert("Please login first");
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/events/${eventId}/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Successfully registered for event!");
+      } else {
+        alert(data.message || "Registration failed");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
+    }
+  };
   return (
     <div>
       <header className="header">
@@ -64,7 +95,12 @@ function Events() {
               </div>
 
               <div className="event-desc">{event.description}</div>
-              <button className="register-btn">Register</button>
+              <button
+                className="register-btn"
+                onClick={() => handleRegister(event._id)}
+              >
+                Register
+              </button>
             </div>
           ))}
         </div>
