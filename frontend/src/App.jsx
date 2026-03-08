@@ -7,6 +7,8 @@ import Clubs from "./pages/Clubs";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function App() {
   return (
     <BrowserRouter>
@@ -15,9 +17,23 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
 
-        <Route path="/events" element={<Events />} />
+        <Route
+          path="/events"
+          element={
+            <ProtectedRoute>
+              <Events />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/clubs" element={<Clubs />} />
+        <Route
+          path="/clubs"
+          element={
+            <ProtectedRoute>
+              <Clubs />
+            </ProtectedRoute>
+          }
+        />
 
         <Route path="/login" element={<Login />} />
 
