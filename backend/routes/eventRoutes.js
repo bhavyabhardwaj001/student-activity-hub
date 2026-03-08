@@ -1,3 +1,4 @@
+const protect = require("./authMiddleware");
 const express = require("express");
 const router = express.Router();
 const Event = require("../models/Event");
@@ -56,4 +57,33 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 }); 
+
+// REGISTER for an event
+router.post("/:id/register", protect, async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    const userId = req.user.id;
+
+    const event = await Event.findById(eventId);
+
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    if (event.participants.includes(userId)) {
+      return res.status(400).json({ message: "Already registered" });
+    }
+
+    await Event.findByIdAndUpdate(eventId, {
+      $push: { participants: userId }
+    });
+
+    res.json({ message: "Registered successfully" });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;
