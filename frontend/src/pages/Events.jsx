@@ -64,6 +64,7 @@ function Events() {
               </div>
 
               <div className="event-desc">{event.description}</div>
+              <button className="register-btn">Register</button>
             </div>
           ))}
         </div>

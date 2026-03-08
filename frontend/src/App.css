@@ -60,6 +60,21 @@ body {
   color: #333;
 }
 
+.register-btn {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.register-btn:hover {
+  background-color: #1d4ed8;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .container {
