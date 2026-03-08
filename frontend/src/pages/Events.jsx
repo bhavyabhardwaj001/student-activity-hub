@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import "../App.css";
 
@@ -49,6 +50,14 @@ function Events() {
       alert("Something went wrong");
     }
   };
+  const token = localStorage.getItem("token");
+
+  let userId = null;
+
+  if (token) {
+    const decoded = jwtDecode(token);
+    userId = decoded.id;
+  }
   return (
     <div>
       <header className="header">
@@ -66,43 +75,55 @@ function Events() {
         {!loading && events.length === 0 && <p>No events available.</p>}
 
         <div className="cards-grid">
-          {events.map((event) => (
-            <div key={event._id} className="event-card">
-              {event.imageUrl && (
-                <img
-                  src={event.imageUrl}
-                  alt={event.title}
+          {events.map((event) => {
+            const alreadyRegistered = event.participants?.includes(userId);
+
+            return (
+              <div key={event._id} className="event-card">
+                {event.imageUrl && (
+                  <img
+                    src={event.imageUrl}
+                    alt={event.title}
+                    style={{
+                      width: "100%",
+                      height: "180px",
+                      objectFit: "cover",
+                      borderRadius: "8px",
+                      marginBottom: "12px",
+                    }}
+                  />
+                )}
+
+                <h4>{event.title}</h4>
+
+                <div className="event-meta">
+                  {event.category} | {new Date(event.date).toLocaleDateString()}
+                </div>
+
+                <div
                   style={{
-                    width: "100%",
-                    height: "180px",
-                    objectFit: "cover",
-                    borderRadius: "8px",
-                    marginBottom: "12px",
+                    fontSize: "13px",
+                    color: "#666",
+                    marginBottom: "8px",
                   }}
-                />
-              )}
+                >
+                  📍 {event.location}
+                </div>
 
-              <h4>{event.title}</h4>
-
-              <div className="event-meta">
-                {event.category} | {new Date(event.date).toLocaleDateString()}
+                <div className="event-desc">{event.description}</div>
+                <p style={{ fontSize: "13px", marginTop: "8px" }}>
+                  Participants: {event.participants?.length || 0}
+                </p>
+                <button
+                  className="register-btn"
+                  onClick={() => handleRegister(event._id)}
+                  disabled={alreadyRegistered}
+                >
+                  {alreadyRegistered ? "Registered" : "Register"}
+                </button>
               </div>
-
-              <div
-                style={{ fontSize: "13px", color: "#666", marginBottom: "8px" }}
-              >
-                📍 {event.location}
-              </div>
-
-              <div className="event-desc">{event.description}</div>
-              <button
-                className="register-btn"
-                onClick={() => handleRegister(event._id)}
-              >
-                Register
-              </button>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </main>
     </div>
