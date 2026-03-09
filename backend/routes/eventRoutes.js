@@ -86,4 +86,21 @@ router.post("/:id/register", protect, async (req, res) => {
   }
 });
 
+// GET events registered by logged-in user
+router.get("/my-events", protect, async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const events = await Event.find({
+      participants: userId
+    });
+
+    res.json(events);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;
