@@ -6,6 +6,7 @@ import Events from "./pages/Events";
 import Clubs from "./pages/Clubs";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import MyEvents from "./pages/MyEvents";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -38,6 +39,15 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route path="/register" element={<Register />} />
+
+        <Route
+          path="/my-events"
+          element={
+            <ProtectedRoute>
+              <MyEvents />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

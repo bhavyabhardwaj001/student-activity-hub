@@ -14,6 +14,7 @@ const token = localStorage.getItem("token");
       <div style={styles.links}>
   <Link to="/" style={styles.link}>Home</Link>
   <Link to="/events" style={styles.link}>Events</Link>
+  <Link to="/my-events" style={styles.link}>My Events</Link>
   <Link to="/clubs" style={styles.link}>Clubs</Link>
 
   {!token && (
