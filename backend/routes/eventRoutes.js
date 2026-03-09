@@ -86,6 +86,34 @@ router.post("/:id/register", protect, async (req, res) => {
   }
 });
 
+// UNREGISTER from an event
+router.post("/:id/unregister", protect, async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    const userId = req.user.id;
+
+    const event = await Event.findById(eventId);
+
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    if (!event.participants.includes(userId)) {
+      return res.status(400).json({ message: "You are not registered for this event" });
+    }
+
+    await Event.findByIdAndUpdate(eventId, {
+      $pull: { participants: userId }
+    });
+
+    res.json({ message: "Unregistered successfully" });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+}); 
+
 // GET events registered by logged-in user
 router.get("/my-events", protect, async (req, res) => {
   try {
