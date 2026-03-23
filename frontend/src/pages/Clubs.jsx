@@ -21,8 +21,7 @@ function Clubs() {
       <main className="container">
         <div className="cards-grid">
           {clubs.map((club) => (
-            <div key={club._id} className="event-card">
-
+            <div key={club._id} className="event-card" data-aos="fade-up">
               {club.imageUrl && (
                 <img
                   src={club.imageUrl}
@@ -40,14 +39,9 @@ function Clubs() {
 
               <h4>{club.name}</h4>
 
-              <div className="event-meta">
-                {club.category}
-              </div>
+              <div className="event-meta">{club.category}</div>
 
-              <div className="event-desc">
-                {club.description}
-              </div>
-
+              <div className="event-desc">{club.description}</div>
             </div>
           ))}
         </div>

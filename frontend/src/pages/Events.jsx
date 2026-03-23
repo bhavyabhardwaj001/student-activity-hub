@@ -115,7 +115,7 @@ function Events() {
               const alreadyRegistered = event.participants?.includes(userId);
 
               return (
-                <div key={event._id} className="event-card">
+                <div key={event._id} className="event-card" data-aos="fade-up">
                   {event.imageUrl && (
                     <img
                       src={event.imageUrl}
