@@ -23,46 +23,56 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    background: "linear-gradient(135deg, #1e3a8a, #2563eb)",
+    background: "linear-gradient(135deg, #0f172a, #1e3a8a)",
     color: "white",
   },
+
   overlay: {
     textAlign: "center",
-    maxWidth: "600px",
-    padding: "20px",
+    maxWidth: "700px",
+    padding: "40px",
+    backdropFilter: "blur(10px)",
+    background: "rgba(255,255,255,0.05)",
+    borderRadius: "12px",
+    boxShadow: "0 8px 30px rgba(0,0,0,0.3)",
   },
+
   title: {
-    fontSize: "48px",
-    fontWeight: "bold",
+    fontSize: "52px",
+    fontWeight: "700",
     marginBottom: "20px",
   },
+
   subtitle: {
     fontSize: "18px",
     marginBottom: "30px",
-    color: "#e0e7ff",
+    color: "#c7d2fe",
   },
+
   buttons: {
     display: "flex",
     justifyContent: "center",
     gap: "15px",
   },
+
   primaryBtn: {
-    padding: "10px 20px",
+    padding: "12px 24px",
     fontSize: "16px",
-    backgroundColor: "#ffffff",
-    color: "#1e3a8a",
+    backgroundColor: "#2563eb",
+    color: "white",
     border: "none",
-    borderRadius: "6px",
+    borderRadius: "8px",
     cursor: "pointer",
     fontWeight: "600",
   },
+
   secondaryBtn: {
-    padding: "10px 20px",
+    padding: "12px 24px",
     fontSize: "16px",
     backgroundColor: "transparent",
     color: "white",
-    border: "1px solid white",
-    borderRadius: "6px",
+    border: "1px solid #c7d2fe",
+    borderRadius: "8px",
     cursor: "pointer",
   },
 };
