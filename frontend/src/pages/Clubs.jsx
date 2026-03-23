@@ -3,52 +3,55 @@ import "../App.css";
 
 function Clubs() {
   const [clubs, setClubs] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/clubs")
       .then((res) => res.json())
-      .then((data) => {
-        setClubs(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
+      .then((data) => setClubs(data))
+      .catch((err) => console.error(err));
   }, []);
 
   return (
-    <div className="container">
-      <h2 className="section-title">College Clubs</h2>
+    <div>
+      <header className="header">
+        <h2>Clubs</h2>
+        <p>Explore student clubs and communities</p>
+      </header>
 
-      {loading && <p>Loading clubs...</p>}
+      <main className="container">
+        <div className="cards-grid">
+          {clubs.map((club) => (
+            <div key={club._id} className="event-card">
 
-      {!loading && clubs.length === 0 && <p>No clubs available.</p>}
+              {club.imageUrl && (
+                <img
+                  src={club.imageUrl}
+                  alt={club.name}
+                  style={{
+                    width: "100%",
+                    height: "180px",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                    marginBottom: "12px",
+                    transition: "transform 0.3s ease",
+                  }}
+                />
+              )}
 
-      {clubs.map((club) => (
-        <div key={club._id} className="event-card">
-          {club.imageUrl && (
-            <img
-              src={club.imageUrl}
-              alt={club.name}
-              style={{
-                width: "100%",
-                height: "180px",
-                objectFit: "cover",
-                borderRadius: "8px",
-                marginBottom: "12px",
-              }}
-            />
-          )}
+              <h4>{club.name}</h4>
 
-          <h3>{club.name}</h3>
+              <div className="event-meta">
+                {club.category}
+              </div>
 
-          <div className="event-meta">{club.category}</div>
+              <div className="event-desc">
+                {club.description}
+              </div>
 
-          <p className="event-desc">{club.description}</p>
+            </div>
+          ))}
         </div>
-      ))}
+      </main>
     </div>
   );
 }
