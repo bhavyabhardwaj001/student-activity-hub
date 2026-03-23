@@ -32,17 +32,21 @@ body {
 
 /* Event card */
 .event-card {
-  background-color: white;
-  border-radius: 10px;
+  background: white;
+  border-radius: 12px;
   padding: 16px;
-  margin-bottom: 20px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .event-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.event-card img:hover {
+  transform: scale(1.05);
 }
 
 .event-card h4 {
@@ -62,17 +66,19 @@ body {
 
 .register-btn {
   margin-top: 12px;
-  padding: 8px 14px;
+  padding: 10px 16px;
   border: none;
   background-color: #2563eb;
   color: white;
   font-weight: 500;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .register-btn:hover {
   background-color: #1d4ed8;
+  transform: scale(1.05);
 }
 
 /* Responsive styles */
@@ -101,9 +107,8 @@ body {
 
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
 }
 
 @media (max-width: 480px) {

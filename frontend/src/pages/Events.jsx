@@ -110,7 +110,7 @@ function Events() {
 
               return matchesCategory && matchesSearch;
             })
-            
+
             .map((event) => {
               const alreadyRegistered = event.participants?.includes(userId);
 
@@ -126,6 +126,7 @@ function Events() {
                         objectFit: "cover",
                         borderRadius: "8px",
                         marginBottom: "12px",
+                        transition: "transform 0.3s ease",
                       }}
                     />
                   )}
