@@ -24,6 +24,36 @@ function MyEvents() {
       });
   }, []);
 
+  const handleUnregister = async (eventId) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/events/${eventId}/unregister`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Unregistered successfully");
+
+        // remove event from list without refreshing
+        setEvents(events.filter((event) => event._id !== eventId));
+      } else {
+        alert(data.message || "Failed to unregister");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
+    }
+  };
+
   return (
     <div>
       <header className="header">
@@ -57,8 +87,7 @@ function MyEvents() {
               <h4>{event.title}</h4>
 
               <div className="event-meta">
-                {event.category} |{" "}
-                {new Date(event.date).toLocaleDateString()}
+                {event.category} | {new Date(event.date).toLocaleDateString()}
               </div>
 
               <div
@@ -72,6 +101,14 @@ function MyEvents() {
               </div>
 
               <div className="event-desc">{event.description}</div>
+              <div className="event-desc">{event.description}</div>
+
+              <button
+                className="register-btn"
+                onClick={() => handleUnregister(event._id)}
+              >
+                Unregister
+              </button>
             </div>
           ))}
         </div>
