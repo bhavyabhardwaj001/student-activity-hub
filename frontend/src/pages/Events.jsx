@@ -6,6 +6,7 @@ function Events() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("All");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:5000/api/events")
@@ -74,6 +75,22 @@ function Events() {
         {loading && <p>Loading events...</p>}
 
         {!loading && events.length === 0 && <p>No events available.</p>}
+
+        <input
+          type="text"
+          placeholder="Search events..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{
+            padding: "8px",
+            width: "100%",
+            maxWidth: "300px",
+            marginBottom: "15px",
+            borderRadius: "6px",
+            border: "1px solid #ccc",
+          }}
+        />
+
         <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
           <button onClick={() => setFilter("All")}>All</button>
           <button onClick={() => setFilter("Technical")}>Technical</button>
@@ -83,9 +100,17 @@ function Events() {
         </div>
         <div className="cards-grid">
           {events
-            .filter((event) =>
-              filter === "All" ? true : event.category === filter,
-            )
+            .filter((event) => {
+              const matchesCategory =
+                filter === "All" ? true : event.category === filter;
+
+              const matchesSearch = event.title
+                .toLowerCase()
+                .includes(search.toLowerCase());
+
+              return matchesCategory && matchesSearch;
+            })
+            
             .map((event) => {
               const alreadyRegistered = event.participants?.includes(userId);
 
