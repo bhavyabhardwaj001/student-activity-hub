@@ -34,15 +34,31 @@ function Home() {
         <h2 style={styles.sectionTitle}>Key Features</h2>
 
         <div style={styles.featuresGrid}>
-          <div style={styles.featureCard} data-aos="fade-up">
+          <div
+            style={styles.featureCard}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-8px) scale(1.02)";
+              e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "none";
+              e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
+            }}
+          >
             <h3>📅 Discover Events</h3>
             <p>Browse and explore all upcoming campus events easily.</p>
           </div>
 
           <div
             style={styles.featureCard}
-            data-aos="fade-up"
-            data-aos-delay="100"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-8px) scale(1.02)";
+              e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "none";
+              e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
+            }}
           >
             <h3>🏫 Join Clubs</h3>
             <p>Find and become a part of student clubs and communities.</p>
@@ -50,8 +66,14 @@ function Home() {
 
           <div
             style={styles.featureCard}
-            data-aos="fade-up"
-            data-aos-delay="200"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-8px) scale(1.02)";
+              e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "none";
+              e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
+            }}
           >
             <h3>📊 Track Participation</h3>
             <p>Keep track of events you have registered for and attended.</p>
@@ -59,8 +81,14 @@ function Home() {
 
           <div
             style={styles.featureCard}
-            data-aos="fade-up"
-            data-aos-delay="300"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-8px) scale(1.02)";
+              e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "none";
+              e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
+            }}
           >
             <h3>🔐 Secure Login</h3>
             <p>Safe authentication system using JWT-based login.</p>
@@ -201,6 +229,11 @@ const styles = {
     transition: "all 0.3s ease",
     cursor: "pointer",
   },
+
+  featureCardHover: {
+    transform: "translateY(-8px) scale(1.02)",
+    boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+  },
   whySection: {
     padding: "80px 20px",
     textAlign: "center",
@@ -214,33 +247,33 @@ const styles = {
     marginTop: "40px",
   },
   ctaSection: {
-  padding: "80px 20px",
-  textAlign: "center",
-  background: "linear-gradient(135deg, #1e3a8a, #0f172a)",
-  color: "white",
-},
+    padding: "80px 20px",
+    textAlign: "center",
+    background: "linear-gradient(135deg, #1e3a8a, #0f172a)",
+    color: "white",
+  },
 
-ctaTitle: {
-  fontSize: "32px",
-  marginBottom: "15px",
-},
+  ctaTitle: {
+    fontSize: "32px",
+    marginBottom: "15px",
+  },
 
-ctaText: {
-  fontSize: "16px",
-  marginBottom: "25px",
-  color: "#c7d2fe",
-},
+  ctaText: {
+    fontSize: "16px",
+    marginBottom: "25px",
+    color: "#c7d2fe",
+  },
 
-ctaButton: {
-  padding: "12px 28px",
-  fontSize: "16px",
-  backgroundColor: "#2563eb",
-  color: "white",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
-  fontWeight: "600",
-},
+  ctaButton: {
+    padding: "12px 28px",
+    fontSize: "16px",
+    backgroundColor: "#2563eb",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "600",
+  },
 };
 
 export default Home;
