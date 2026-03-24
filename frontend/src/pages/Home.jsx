@@ -69,27 +69,35 @@ function Home() {
       </div>
 
       <div style={styles.whySection}>
-  <h2 style={styles.sectionTitle}>Why Use This Platform?</h2>
+        <h2 style={styles.sectionTitle}>Why Use This Platform?</h2>
 
-  <div style={styles.whyGrid}>
-    
-    <div data-aos="fade-up">
-      <h3>🎯 Stay Updated</h3>
-      <p>Never miss important campus events and opportunities.</p>
-    </div>
+        <div style={styles.whyGrid}>
+          <div data-aos="fade-up">
+            <h3>🎯 Stay Updated</h3>
+            <p>Never miss important campus events and opportunities.</p>
+          </div>
 
-    <div data-aos="fade-up" data-aos-delay="100">
-      <h3>🤝 Build Connections</h3>
-      <p>Join clubs and meet like-minded students.</p>
-    </div>
+          <div data-aos="fade-up" data-aos-delay="100">
+            <h3>🤝 Build Connections</h3>
+            <p>Join clubs and meet like-minded students.</p>
+          </div>
 
-    <div data-aos="fade-up" data-aos-delay="200">
-      <h3>🚀 Boost Growth</h3>
-      <p>Participate in activities that enhance your skills.</p>
-    </div>
+          <div data-aos="fade-up" data-aos-delay="200">
+            <h3>🚀 Boost Growth</h3>
+            <p>Participate in activities that enhance your skills.</p>
+          </div>
+        </div>
+      </div>
 
-  </div>
-</div>
+      <div style={styles.ctaSection} data-aos="fade-up">
+        <h2 style={styles.ctaTitle}>Start Your Journey Today</h2>
+
+        <p style={styles.ctaText}>
+          Explore events, join clubs, and make the most out of your campus life.
+        </p>
+
+        <button style={styles.ctaButton}>Explore Events</button>
+      </div>
     </>
   );
 }
@@ -173,37 +181,65 @@ const styles = {
     lineHeight: "1.6",
   },
   featuresSection: {
+    padding: "80px 20px",
+    textAlign: "center",
+    backgroundColor: "white",
+  },
+
+  featuresGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+    gap: "20px",
+    marginTop: "40px",
+  },
+
+  featureCard: {
+    padding: "20px",
+    borderRadius: "12px",
+    background: "#f1f5f9",
+    boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+    transition: "all 0.3s ease",
+    cursor: "pointer",
+  },
+  whySection: {
+    padding: "80px 20px",
+    textAlign: "center",
+    background: "linear-gradient(135deg, #e0e7ff, #f8fafc)",
+  },
+
+  whyGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+    gap: "30px",
+    marginTop: "40px",
+  },
+  ctaSection: {
   padding: "80px 20px",
   textAlign: "center",
-  backgroundColor: "white",
+  background: "linear-gradient(135deg, #1e3a8a, #0f172a)",
+  color: "white",
 },
 
-featuresGrid: {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-  gap: "20px",
-  marginTop: "40px",
+ctaTitle: {
+  fontSize: "32px",
+  marginBottom: "15px",
 },
 
-featureCard: {
-  padding: "20px",
-  borderRadius: "12px",
-  background: "#f1f5f9",
-  boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-  transition: "all 0.3s ease",
+ctaText: {
+  fontSize: "16px",
+  marginBottom: "25px",
+  color: "#c7d2fe",
+},
+
+ctaButton: {
+  padding: "12px 28px",
+  fontSize: "16px",
+  backgroundColor: "#2563eb",
+  color: "white",
+  border: "none",
+  borderRadius: "8px",
   cursor: "pointer",
-},
-whySection: {
-  padding: "80px 20px",
-  textAlign: "center",
-  background: "linear-gradient(135deg, #e0e7ff, #f8fafc)",
-},
-
-whyGrid: {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-  gap: "30px",
-  marginTop: "40px",
+  fontWeight: "600",
 },
 };
 
