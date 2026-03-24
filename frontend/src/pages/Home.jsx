@@ -13,8 +13,33 @@ function Home() {
           </p>
 
           <div style={styles.buttons} data-aos="zoom-in" data-aos-delay="400">
-            <button style={styles.primaryBtn}>Explore Events</button>
-            <button style={styles.secondaryBtn}>Join Now</button>
+            <button
+              style={styles.primaryBtn}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow =
+                  "0 8px 20px rgba(37, 99, 235, 0.4)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "none";
+                e.currentTarget.style.boxShadow = "none";
+              }}
+            >
+              Explore Events
+            </button>
+            <button
+              style={styles.secondaryBtn}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.1)";
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.transform = "none";
+              }}
+            >
+              Join Now
+            </button>
           </div>
         </div>
       </div>
@@ -32,8 +57,8 @@ function Home() {
 
       <div style={styles.featuresSection} data-aos="fade-up">
         <h2 style={styles.sectionTitle} data-aos="fade-down">
-  Key Features
-</h2>
+          Key Features
+        </h2>
 
         <div style={styles.featuresGrid}>
           <div
@@ -126,7 +151,20 @@ function Home() {
           Explore events, join clubs, and make the most out of your campus life.
         </p>
 
-        <button style={styles.ctaButton}>Explore Events</button>
+        <button
+          style={styles.ctaButton}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.05)";
+            e.currentTarget.style.boxShadow =
+              "0 10px 25px rgba(96,165,250,0.4)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "none";
+            e.currentTarget.style.boxShadow = "none";
+          }}
+        >
+          Explore Events
+        </button>
       </div>
     </>
   );
@@ -174,12 +212,13 @@ const styles = {
   primaryBtn: {
     padding: "12px 24px",
     fontSize: "16px",
-    backgroundColor: "#2563eb",
+    background: "linear-gradient(135deg, #2563eb, #3b82f6)",
     color: "white",
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
     fontWeight: "600",
+    transition: "all 0.3s ease",
   },
 
   secondaryBtn: {
@@ -190,6 +229,7 @@ const styles = {
     border: "1px solid #c7d2fe",
     borderRadius: "8px",
     cursor: "pointer",
+    transition: "all 0.3s ease",
   },
   section: {
     padding: "80px 20px",
@@ -269,12 +309,13 @@ const styles = {
   ctaButton: {
     padding: "12px 28px",
     fontSize: "16px",
-    backgroundColor: "#2563eb",
+    background: "linear-gradient(135deg, #2563eb, #60a5fa)",
     color: "white",
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
     fontWeight: "600",
+    transition: "all 0.3s ease",
   },
 };
 
