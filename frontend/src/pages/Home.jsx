@@ -1,21 +1,35 @@
 function Home() {
   return (
-    <div style={styles.hero}>
-      <div style={styles.overlay}>
-        <h1 style={styles.title} data-aos="fade-down">
-          Student Activities Hub
-        </h1>
+    <>
+      {/* HERO */}
+      <div style={styles.hero}>
+        <div style={styles.overlay}>
+          <h1 style={styles.title} data-aos="fade-down">
+            Student Activities Hub
+          </h1>
 
-        <p style={styles.subtitle} data-aos="fade-up" data-aos-delay="200">
-          Discover events, join clubs, and make your campus life exciting.
-        </p>
+          <p style={styles.subtitle} data-aos="fade-up" data-aos-delay="200">
+            Discover events, join clubs, and make your campus life exciting.
+          </p>
 
-        <div style={styles.buttons} data-aos="zoom-in" data-aos-delay="400">
-          <button style={styles.primaryBtn}>Explore Events</button>
-          <button style={styles.secondaryBtn}>Join Now</button>
+          <div style={styles.buttons} data-aos="zoom-in" data-aos-delay="400">
+            <button style={styles.primaryBtn}>Explore Events</button>
+            <button style={styles.secondaryBtn}>Join Now</button>
+          </div>
         </div>
       </div>
-    </div>
+
+      <div style={styles.section} data-aos="fade-up">
+        <h2 style={styles.sectionTitle}>What is Student Activities Hub?</h2>
+
+        <p style={styles.sectionText}>
+          Student Activities Hub is a centralized platform designed to simplify
+          campus life. It allows students to explore events, join clubs, and
+          track their participation in one place. The platform enhances
+          engagement and ensures that no opportunity goes unnoticed.
+        </p>
+      </div>
+    </>
   );
 }
 
@@ -27,7 +41,7 @@ const styles = {
     justifyContent: "center",
     background: "linear-gradient(135deg, #0f172a, #1e3a8a)",
     color: "white",
-    overflow:"hidden",
+    overflow: "hidden",
   },
 
   overlay: {
@@ -77,6 +91,25 @@ const styles = {
     border: "1px solid #c7d2fe",
     borderRadius: "8px",
     cursor: "pointer",
+  },
+  section: {
+    padding: "80px 20px",
+    textAlign: "center",
+    backgroundColor: "#f8fafc",
+  },
+
+  sectionTitle: {
+    fontSize: "32px",
+    fontWeight: "600",
+    marginBottom: "20px",
+  },
+
+  sectionText: {
+    maxWidth: "700px",
+    margin: "0 auto",
+    fontSize: "16px",
+    color: "#475569",
+    lineHeight: "1.6",
   },
 };
 
