@@ -29,6 +29,7 @@ function Home() {
           engagement and ensures that no opportunity goes unnoticed.
         </p>
       </div>
+
       <div style={styles.featuresSection}>
         <h2 style={styles.sectionTitle}>Key Features</h2>
 
@@ -66,6 +67,29 @@ function Home() {
           </div>
         </div>
       </div>
+
+      <div style={styles.whySection}>
+  <h2 style={styles.sectionTitle}>Why Use This Platform?</h2>
+
+  <div style={styles.whyGrid}>
+    
+    <div data-aos="fade-up">
+      <h3>🎯 Stay Updated</h3>
+      <p>Never miss important campus events and opportunities.</p>
+    </div>
+
+    <div data-aos="fade-up" data-aos-delay="100">
+      <h3>🤝 Build Connections</h3>
+      <p>Join clubs and meet like-minded students.</p>
+    </div>
+
+    <div data-aos="fade-up" data-aos-delay="200">
+      <h3>🚀 Boost Growth</h3>
+      <p>Participate in activities that enhance your skills.</p>
+    </div>
+
+  </div>
+</div>
     </>
   );
 }
@@ -168,6 +192,18 @@ featureCard: {
   boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
   transition: "all 0.3s ease",
   cursor: "pointer",
+},
+whySection: {
+  padding: "80px 20px",
+  textAlign: "center",
+  background: "linear-gradient(135deg, #e0e7ff, #f8fafc)",
+},
+
+whyGrid: {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+  gap: "30px",
+  marginTop: "40px",
 },
 };
 
