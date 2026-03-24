@@ -2,13 +2,15 @@ function Home() {
   return (
     <div style={styles.hero}>
       <div style={styles.overlay}>
-        <h1 style={styles.title}>Student Activities Hub</h1>
+        <h1 style={styles.title} data-aos="fade-down">
+          Student Activities Hub
+        </h1>
 
-        <p style={styles.subtitle}>
+        <p style={styles.subtitle} data-aos="fade-up" data-aos-delay="200">
           Discover events, join clubs, and make your campus life exciting.
         </p>
 
-        <div style={styles.buttons}>
+        <div style={styles.buttons} data-aos="zoom-in" data-aos-delay="400">
           <button style={styles.primaryBtn}>Explore Events</button>
           <button style={styles.secondaryBtn}>Join Now</button>
         </div>
@@ -25,6 +27,7 @@ const styles = {
     justifyContent: "center",
     background: "linear-gradient(135deg, #0f172a, #1e3a8a)",
     color: "white",
+    overflow:"hidden",
   },
 
   overlay: {
