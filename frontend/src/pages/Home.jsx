@@ -30,8 +30,10 @@ function Home() {
         </p>
       </div>
 
-      <div style={styles.featuresSection}>
-        <h2 style={styles.sectionTitle}>Key Features</h2>
+      <div style={styles.featuresSection} data-aos="fade-up">
+        <h2 style={styles.sectionTitle} data-aos="fade-down">
+  Key Features
+</h2>
 
         <div style={styles.featuresGrid}>
           <div
