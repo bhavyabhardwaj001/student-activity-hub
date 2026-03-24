@@ -29,6 +29,43 @@ function Home() {
           engagement and ensures that no opportunity goes unnoticed.
         </p>
       </div>
+      <div style={styles.featuresSection}>
+        <h2 style={styles.sectionTitle}>Key Features</h2>
+
+        <div style={styles.featuresGrid}>
+          <div style={styles.featureCard} data-aos="fade-up">
+            <h3>📅 Discover Events</h3>
+            <p>Browse and explore all upcoming campus events easily.</p>
+          </div>
+
+          <div
+            style={styles.featureCard}
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <h3>🏫 Join Clubs</h3>
+            <p>Find and become a part of student clubs and communities.</p>
+          </div>
+
+          <div
+            style={styles.featureCard}
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <h3>📊 Track Participation</h3>
+            <p>Keep track of events you have registered for and attended.</p>
+          </div>
+
+          <div
+            style={styles.featureCard}
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <h3>🔐 Secure Login</h3>
+            <p>Safe authentication system using JWT-based login.</p>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
@@ -111,6 +148,27 @@ const styles = {
     color: "#475569",
     lineHeight: "1.6",
   },
+  featuresSection: {
+  padding: "80px 20px",
+  textAlign: "center",
+  backgroundColor: "white",
+},
+
+featuresGrid: {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+  gap: "20px",
+  marginTop: "40px",
+},
+
+featureCard: {
+  padding: "20px",
+  borderRadius: "12px",
+  background: "#f1f5f9",
+  boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+  transition: "all 0.3s ease",
+  cursor: "pointer",
+},
 };
 
 export default Home;
