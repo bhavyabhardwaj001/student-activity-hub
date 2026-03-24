@@ -111,11 +111,16 @@ function Events() {
               return matchesCategory && matchesSearch;
             })
 
-            .map((event) => {
+            .map((event, index) => {
               const alreadyRegistered = event.participants?.includes(userId);
 
               return (
-                <div key={event._id} className="event-card" data-aos="fade-up">
+                <div
+                  key={event._id}
+                  className="event-card"
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                >
                   {event.imageUrl && (
                     <img
                       src={event.imageUrl}
