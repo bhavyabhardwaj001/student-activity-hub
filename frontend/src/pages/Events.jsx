@@ -1,5 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "../App.css";
 
 function Events() {
@@ -20,6 +22,21 @@ function Events() {
         setLoading(false);
       });
   }, []);
+
+  // Initialize and reinitialize AOS with slower animation
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out",
+      once: false,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!loading && events.length > 0) {
+      AOS.refresh();
+    }
+  }, [events, loading]);
   const handleRegister = async (eventId) => {
     const token = localStorage.getItem("token");
 
@@ -207,7 +224,8 @@ function Events() {
                   key={event._id}
                   style={styles.eventCard}
                   data-aos="fade-up"
-                  data-aos-delay={index * 100}
+                  data-aos-duration="800"
+                  data-aos-delay={`${index * 100}`}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-8px)";
                     e.currentTarget.style.boxShadow =
@@ -229,7 +247,14 @@ function Events() {
                         objectFit: "cover",
                         borderRadius: "8px",
                         marginBottom: "12px",
-                        transition: "transform 0.3s ease",
+                        transition:
+                          "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.transform = "scale(1.08) rotate(1deg)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.transform = "none";
                       }}
                     />
                   )}
@@ -335,7 +360,7 @@ const styles = {
     fontSize: "16px",
     borderRadius: "8px",
     border: "2px solid #e2e8f0",
-    transition: "all 0.3s ease",
+    transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
     boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
     outline: "none",
     ":focus": {
