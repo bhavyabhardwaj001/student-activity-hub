@@ -7,6 +7,7 @@ function Home() {
     <>
       {/* HERO */}
       <div style={styles.hero}>
+        <div style={styles.glow}></div>
         <div style={styles.overlay}>
           <h1 style={styles.title} data-aos="fade-down">
             Student Activities Hub
@@ -216,11 +217,24 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    background: "linear-gradient(135deg, #0f172a, #1e3a8a)",
+    background: "linear-gradient(-45deg, #0f172a, #1e3a8a, #2563eb, #1e40af)",
+    backgroundSize: "400% 400%",
+    animation: "gradientMove 12s ease infinite",
     color: "white",
     overflow: "hidden",
+    position: "relative",
   },
-
+  glow: {
+    position: "absolute",
+    width: "500px",
+    height: "500px",
+    background: "rgba(59,130,246,0.3)",
+    filter: "blur(120px)",
+    top: "-100px",
+    left: "-100px",
+    zIndex: 0,
+    pointerEvents: "none",
+  },
   overlay: {
     textAlign: "center",
     maxWidth: "700px",
@@ -229,6 +243,8 @@ const styles = {
     background: "rgba(255,255,255,0.05)",
     borderRadius: "12px",
     boxShadow: "0 8px 30px rgba(0,0,0,0.3)",
+    zIndex: 1,
+    position: "relative",
   },
 
   title: {
