@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 function Home() {
+  const navigate = useNavigate();
+
   return (
     <>
       {/* HERO */}
@@ -15,10 +19,12 @@ function Home() {
           <div style={styles.buttons} data-aos="zoom-in" data-aos-delay="400">
             <button
               style={styles.primaryBtn}
+              onClick={() => navigate("/events")}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.transform =
+                  "translateY(-3px) scale(1.02)";
                 e.currentTarget.style.boxShadow =
-                  "0 8px 20px rgba(37, 99, 235, 0.4)";
+                  "0 12px 30px rgba(37, 99, 235, 0.5)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "none";
@@ -29,13 +35,18 @@ function Home() {
             </button>
             <button
               style={styles.secondaryBtn}
+              onClick={() => navigate("/register")}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(255,255,255,0.1)";
-                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.background = "rgba(255,255,255,0.15)";
+                e.currentTarget.style.transform =
+                  "translateY(-3px) scale(1.02)";
+                e.currentTarget.style.boxShadow =
+                  "0 8px 20px rgba(199, 210, 254, 0.3)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent";
                 e.currentTarget.style.transform = "none";
+                e.currentTarget.style.boxShadow = "none";
               }}
             >
               Join Now
@@ -181,10 +192,11 @@ function Home() {
 
         <button
           style={styles.ctaButton}
+          onClick={() => navigate("/events")}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "scale(1.05)";
+            e.currentTarget.style.transform = "scale(1.06) translateY(-2px)";
             e.currentTarget.style.boxShadow =
-              "0 10px 25px rgba(96,165,250,0.4)";
+              "0 15px 35px rgba(96,165,250,0.5)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = "none";
@@ -246,7 +258,7 @@ const styles = {
     borderRadius: "8px",
     cursor: "pointer",
     fontWeight: "600",
-    transition: "all 0.3s ease",
+    transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
   },
 
   secondaryBtn: {
@@ -257,13 +269,17 @@ const styles = {
     border: "1px solid #c7d2fe",
     borderRadius: "8px",
     cursor: "pointer",
-    transition: "all 0.3s ease",
+    transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
   },
   section: {
     padding: "80px 20px",
     textAlign: "center",
-    backgroundColor: "#f8fafc",
+    background: `
+  linear-gradient(180deg, #f8fafc, #eef2ff),
+  url("https://www.transparenttextures.com/patterns/cubes.png")
+`,
     borderTop: "1px solid #e2e8f0",
+    borderBottom: "1px solid #e2e8f0",
   },
 
   sectionTitle: {
@@ -282,7 +298,11 @@ const styles = {
   featuresSection: {
     padding: "80px 20px",
     textAlign: "center",
-    background: "linear-gradient(180deg, #ffffff, #f8fafc)",
+    background: `
+  linear-gradient(180deg, #ffffff, #f8fafc),
+  url("https://www.transparenttextures.com/patterns/diamond-upholstery.png")
+`,
+    borderBottom: "1px solid #e2e8f0",
   },
 
   featuresGrid: {
@@ -297,10 +317,10 @@ const styles = {
     borderRadius: "14px",
     background: "white",
     boxShadow: "0 6px 25px rgba(0,0,0,0.08)",
-    transition: "all 0.3s ease",
+    transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
     cursor: "pointer",
   },
-  
+
   featureCardHover: {
     transform: "translateY(-8px) scale(1.02)",
     boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -308,7 +328,11 @@ const styles = {
   whySection: {
     padding: "80px 20px",
     textAlign: "center",
-    background: "linear-gradient(135deg, #e0e7ff, #f8fafc)",
+    background: `
+  linear-gradient(135deg, #e0e7ff, #f8fafc),
+  url("https://www.transparenttextures.com/patterns/dots.png")
+`,
+    borderBottom: "1px solid #e2e8f0",
   },
 
   whyGrid: {
@@ -322,6 +346,7 @@ const styles = {
     textAlign: "center",
     background: "linear-gradient(135deg, #1e3a8a, #0f172a)",
     color: "white",
+    borderBottom: "1px solid #e2e8f0",
   },
 
   ctaTitle: {
@@ -344,7 +369,7 @@ const styles = {
     borderRadius: "8px",
     cursor: "pointer",
     fontWeight: "600",
-    transition: "all 0.3s ease",
+    transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
   },
 };
 
