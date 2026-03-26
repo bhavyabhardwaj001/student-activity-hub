@@ -72,8 +72,12 @@ function Home() {
               e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
             }}
           >
-            <h3>📅 Discover Events</h3>
-            <p>Browse and explore all upcoming campus events easily.</p>
+            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+              📅 Discover Events
+            </h3>
+            <p style={{ fontSize: "15px", color: "#475569" }}>
+              Browse and explore all upcoming campus events easily.
+            </p>
           </div>
 
           <div
@@ -87,8 +91,12 @@ function Home() {
               e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
             }}
           >
-            <h3>🏫 Join Clubs</h3>
-            <p>Find and become a part of student clubs and communities.</p>
+            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+              🏫 Join Clubs
+            </h3>
+            <p style={{ fontSize: "15px", color: "#475569" }}>
+              Find and become a part of student clubs and communities.
+            </p>
           </div>
 
           <div
@@ -102,8 +110,12 @@ function Home() {
               e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
             }}
           >
-            <h3>📊 Track Participation</h3>
-            <p>Keep track of events you have registered for and attended.</p>
+            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+              📊 Track Participation
+            </h3>
+            <p style={{ fontSize: "15px", color: "#475569" }}>
+              Keep track of events you have registered for and attended.
+            </p>
           </div>
 
           <div
@@ -117,8 +129,12 @@ function Home() {
               e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
             }}
           >
-            <h3>🔐 Secure Login</h3>
-            <p>Safe authentication system using JWT-based login.</p>
+            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+              🔐 Secure Login
+            </h3>
+            <p style={{ fontSize: "15px", color: "#475569" }}>
+              Safe authentication system using JWT-based login.
+            </p>
           </div>
         </div>
       </div>
@@ -128,18 +144,30 @@ function Home() {
 
         <div style={styles.whyGrid}>
           <div data-aos="fade-up">
-            <h3>🎯 Stay Updated</h3>
-            <p>Never miss important campus events and opportunities.</p>
+            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+              🎯 Stay Updated
+            </h3>
+            <p style={{ fontSize: "15px", color: "#475569" }}>
+              Never miss important campus events and opportunities.
+            </p>
           </div>
 
           <div data-aos="fade-up" data-aos-delay="100">
-            <h3>🤝 Build Connections</h3>
-            <p>Join clubs and meet like-minded students.</p>
+            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+              🤝 Build Connections
+            </h3>
+            <p style={{ fontSize: "15px", color: "#475569" }}>
+              Join clubs and meet like-minded students.
+            </p>
           </div>
 
           <div data-aos="fade-up" data-aos-delay="200">
-            <h3>🚀 Boost Growth</h3>
-            <p>Participate in activities that enhance your skills.</p>
+            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+              🚀 Boost Growth
+            </h3>
+            <p style={{ fontSize: "15px", color: "#475569" }}>
+              Participate in activities that enhance your skills.
+            </p>
           </div>
         </div>
       </div>
@@ -192,13 +220,13 @@ const styles = {
   },
 
   title: {
-    fontSize: "52px",
+    fontSize: "60px",
     fontWeight: "700",
     marginBottom: "20px",
   },
 
   subtitle: {
-    fontSize: "18px",
+    fontSize: "20px",
     marginBottom: "30px",
     color: "#c7d2fe",
   },
@@ -235,10 +263,11 @@ const styles = {
     padding: "80px 20px",
     textAlign: "center",
     backgroundColor: "#f8fafc",
+    borderTop: "1px solid #e2e8f0",
   },
 
   sectionTitle: {
-    fontSize: "32px",
+    fontSize: "36px",
     fontWeight: "600",
     marginBottom: "20px",
   },
@@ -246,14 +275,14 @@ const styles = {
   sectionText: {
     maxWidth: "700px",
     margin: "0 auto",
-    fontSize: "16px",
+    fontSize: "18px",
     color: "#475569",
-    lineHeight: "1.6",
+    lineHeight: "1.7",
   },
   featuresSection: {
     padding: "80px 20px",
     textAlign: "center",
-    backgroundColor: "white",
+    background: "linear-gradient(180deg, #ffffff, #f8fafc)",
   },
 
   featuresGrid: {
@@ -264,14 +293,14 @@ const styles = {
   },
 
   featureCard: {
-    padding: "20px",
-    borderRadius: "12px",
-    background: "#f1f5f9",
-    boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+    padding: "22px",
+    borderRadius: "14px",
+    background: "white",
+    boxShadow: "0 6px 25px rgba(0,0,0,0.08)",
     transition: "all 0.3s ease",
     cursor: "pointer",
   },
-
+  
   featureCardHover: {
     transform: "translateY(-8px) scale(1.02)",
     boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -296,7 +325,7 @@ const styles = {
   },
 
   ctaTitle: {
-    fontSize: "32px",
+    fontSize: "36px",
     marginBottom: "15px",
   },
 
