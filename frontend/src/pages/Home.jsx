@@ -314,10 +314,7 @@ const styles = {
   featuresSection: {
     padding: "80px 20px",
     textAlign: "center",
-    background: `
-  linear-gradient(180deg, #ffffff, #f8fafc),
-  url("https://www.transparenttextures.com/patterns/diamond-upholstery.png")
-`,
+    background: `linear-gradient(135deg, #e0f2fe, #f0f9ff, #f8fafc)`,
     borderBottom: "1px solid #e2e8f0",
   },
 

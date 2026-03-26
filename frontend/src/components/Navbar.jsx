@@ -12,35 +12,70 @@ function Navbar() {
       <h2 style={styles.logo}>Student Activities Hub</h2>
 
       <div style={styles.links}>
-        <Link to="/" style={styles.link}>
+        <Link
+          to="/"
+          style={styles.link}
+          onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
+          onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
+        >
           Home
         </Link>
-        <Link to="/events" style={styles.link}>
+        <Link
+          to="/events"
+          style={styles.link}
+          onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
+          onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
+        >
           Events
         </Link>
-        <Link to="/my-events" style={styles.link}>
+        <Link
+          to="/my-events"
+          style={styles.link}
+          onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
+          onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
+        >
           My Events
         </Link>
-        <Link to="/clubs" style={styles.link}>
+        <Link
+          to="/clubs"
+          style={styles.link}
+          onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
+          onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
+        >
           Clubs
         </Link>
 
         {!token && (
-          <Link to="/login" style={styles.link}>
+          <Link
+            to="/login"
+            style={styles.link}
+            onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
+            onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
+          >
             Login
           </Link>
         )}
 
         {!token && (
-          <Link to="/register" style={styles.link}>
+          <Link
+            to="/register"
+            style={styles.link}
+            onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
+            onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
+          >
             Register
           </Link>
         )}
 
         {token && (
-          <button onClick={handleLogout} style={styles.logout}>
-            Logout
-          </button>
+          <span
+  style={styles.link}
+  onClick={handleLogout}
+  onMouseEnter={(e) => (e.target.style.color = "#60a5fa")}
+  onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
+>
+  Logout
+</span>
         )}
       </div>
     </nav>
@@ -49,28 +84,35 @@ function Navbar() {
 
 const styles = {
   nav: {
+    position: "sticky",
+    top: 0,
+    zIndex: 1000,
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "16px 40px",
-    background: "linear-gradient(90deg, #0f172a, #1e3a8a)",
-    color: "white",
+    padding: "12px 40px",
+    backdropFilter: "blur(12px)",
+    background:
+      "linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 58, 138, 0.8))",
+    borderBottom: "1px solid rgba(37, 99, 235, 0.3)",
+    boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
   },
   logo: {
     margin: 0,
-    fontWeight: "600",
-    fontSize: "20px",
+    fontSize: "22px",
+    fontWeight: "700",
+    letterSpacing: "0.5px",
+    color: "white",
   },
   links: {
     display: "flex",
     gap: "20px",
   },
   link: {
-    color: "white",
+    color: "#e2e8f0",
     textDecoration: "none",
     fontWeight: "500",
-    position: "relative",
-    paddingBottom: "4px",
+    transition: "all 0.2s ease",
   },
   logout: {
     color: "white",
