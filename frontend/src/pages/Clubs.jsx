@@ -106,6 +106,20 @@ function Clubs() {
                 {club.category}
               </div>
 
+              {/* Show date if available */}
+              {club.date && (
+                <div style={{ fontSize: isMobile ? "12px" : "13px", color: "#64748b", marginBottom: "6px" }}>
+                  <span style={{ fontWeight: 500 }}>Founded:</span> {new Date(club.date).toLocaleDateString()}
+                </div>
+              )}
+
+              {/* Show location if available */}
+              {club.location && (
+                <div style={{ fontSize: isMobile ? "12px" : "13px", color: "#64748b", marginBottom: "6px" }}>
+                  <span style={{ fontWeight: 500 }}>Location:</span> {club.location}
+                </div>
+              )}
+
               <div style={getStyles(isMobile).clubDesc}>{club.description}</div>
             </div>
           ))}

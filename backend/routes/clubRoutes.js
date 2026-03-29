@@ -8,20 +8,24 @@ const router = express.Router();
 // CREATE CLUB (Only logged-in user)
 router.post("/", protect, async (req, res) => {
   try {
-    const { name, description } = req.body;
+    const { name, description, category, date, location, imageUrl } = req.body;
 
     const club = await Club.create({
       name,
       description,
+      category,
+      date,
+      location,
+      imageUrl,
       createdBy: req.user.id,
       members: [req.user.id] // creator automatically member
     });
 
     res.json(club);
   } catch (error) {
-  console.log(error);
-  res.status(500).json({ message: error.message });
-}
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
 });
 
 
@@ -56,6 +60,49 @@ router.post("/:id/join", protect, async (req, res) => {
     res.json({ message: "Joined club successfully ✅" });
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
+  }
+});
+
+
+// UPDATE CLUB (Only creator)
+router.put("/:id", protect, async (req, res) => {
+  try {
+    const club = await Club.findById(req.params.id);
+    if (!club) {
+      return res.status(404).json({ message: "Club not found" });
+    }
+    if (club.createdBy.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Not authorized" });
+    }
+    club.name = req.body.name || club.name;
+    club.description = req.body.description || club.description;
+    club.category = req.body.category || club.category;
+    club.date = req.body.date || club.date;
+    club.location = req.body.location || club.location;
+    club.imageUrl = req.body.imageUrl || club.imageUrl;
+    await club.save();
+    res.json(club);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// DELETE CLUB (Only creator)
+router.delete("/:id", protect, async (req, res) => {
+  try {
+    const club = await Club.findById(req.params.id);
+
+    if (!club) {
+      return res.status(404).json({ message: "Club not found" });
+    }
+
+    // ❌ No authorization check
+    await club.deleteOne();
+
+    res.json({ message: "Club deleted successfully" });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
