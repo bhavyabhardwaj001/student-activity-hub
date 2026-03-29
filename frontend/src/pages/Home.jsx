@@ -1,25 +1,44 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function Home() {
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
       {/* HERO */}
-      <div style={styles.hero}>
-        <div style={styles.glow}></div>
-        <div style={styles.overlay}>
-          <h1 style={styles.title} data-aos="fade-down">
+      <div style={getStyles(isMobile).hero}>
+        <div style={getStyles(isMobile).glow}></div>
+        <div style={getStyles(isMobile).overlay}>
+          <h1 style={getStyles(isMobile).title} data-aos="fade-down">
             Student Activities Hub
           </h1>
 
-          <p style={styles.subtitle} data-aos="fade-up" data-aos-delay="200">
+          <p
+            style={getStyles(isMobile).subtitle}
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             Discover events, join clubs, and make your campus life exciting.
           </p>
 
-          <div style={styles.buttons} data-aos="zoom-in" data-aos-delay="400">
+          <div
+            style={getStyles(isMobile).buttons}
+            data-aos="zoom-in"
+            data-aos-delay="400"
+          >
             <button
-              style={styles.primaryBtn}
+              style={getStyles(isMobile).primaryBtn}
               onClick={() => navigate("/events")}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform =
@@ -35,7 +54,7 @@ function Home() {
               Explore Events
             </button>
             <button
-              style={styles.secondaryBtn}
+              style={getStyles(isMobile).secondaryBtn}
               onClick={() => navigate("/register")}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = "rgba(255,255,255,0.15)";
@@ -56,10 +75,12 @@ function Home() {
         </div>
       </div>
 
-      <div style={styles.section} data-aos="fade-up">
-        <h2 style={styles.sectionTitle}>What is Student Activities Hub?</h2>
+      <div style={getStyles(isMobile).section} data-aos="fade-up">
+        <h2 style={getStyles(isMobile).sectionTitle}>
+          What is Student Activities Hub?
+        </h2>
 
-        <p style={styles.sectionText}>
+        <p style={getStyles(isMobile).sectionText}>
           Student Activities Hub is a centralized platform designed to simplify
           campus life. It allows students to explore events, join clubs, and
           track their participation in one place. The platform enhances
@@ -67,14 +88,14 @@ function Home() {
         </p>
       </div>
 
-      <div style={styles.featuresSection} data-aos="fade-up">
-        <h2 style={styles.sectionTitle} data-aos="fade-down">
+      <div style={getStyles(isMobile).featuresSection} data-aos="fade-up">
+        <h2 style={getStyles(isMobile).sectionTitle} data-aos="fade-down">
           Key Features
         </h2>
 
-        <div style={styles.featuresGrid}>
+        <div style={getStyles(isMobile).featuresGrid}>
           <div
-            style={styles.featureCard}
+            style={getStyles(isMobile).featureCard}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-8px) scale(1.02)";
               e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.2)";
@@ -84,16 +105,23 @@ function Home() {
               e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
             }}
           >
-            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+            <h3
+              style={{
+                fontSize: isMobile ? "18px" : "20px",
+                marginBottom: "10px",
+              }}
+            >
               📅 Discover Events
             </h3>
-            <p style={{ fontSize: "15px", color: "#475569" }}>
+            <p
+              style={{ fontSize: isMobile ? "14px" : "15px", color: "#475569" }}
+            >
               Browse and explore all upcoming campus events easily.
             </p>
           </div>
 
           <div
-            style={styles.featureCard}
+            style={getStyles(isMobile).featureCard}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-8px) scale(1.02)";
               e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.2)";
@@ -103,16 +131,23 @@ function Home() {
               e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
             }}
           >
-            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+            <h3
+              style={{
+                fontSize: isMobile ? "18px" : "20px",
+                marginBottom: "10px",
+              }}
+            >
               🏫 Join Clubs
             </h3>
-            <p style={{ fontSize: "15px", color: "#475569" }}>
+            <p
+              style={{ fontSize: isMobile ? "14px" : "15px", color: "#475569" }}
+            >
               Find and become a part of student clubs and communities.
             </p>
           </div>
 
           <div
-            style={styles.featureCard}
+            style={getStyles(isMobile).featureCard}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-8px) scale(1.02)";
               e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.2)";
@@ -122,16 +157,23 @@ function Home() {
               e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
             }}
           >
-            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+            <h3
+              style={{
+                fontSize: isMobile ? "18px" : "20px",
+                marginBottom: "10px",
+              }}
+            >
               📊 Track Participation
             </h3>
-            <p style={{ fontSize: "15px", color: "#475569" }}>
+            <p
+              style={{ fontSize: isMobile ? "14px" : "15px", color: "#475569" }}
+            >
               Keep track of events you have registered for and attended.
             </p>
           </div>
 
           <div
-            style={styles.featureCard}
+            style={getStyles(isMobile).featureCard}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-8px) scale(1.02)";
               e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.2)";
@@ -141,20 +183,27 @@ function Home() {
               e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
             }}
           >
-            <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+            <h3
+              style={{
+                fontSize: isMobile ? "18px" : "20px",
+                marginBottom: "10px",
+              }}
+            >
               🔐 Secure Login
             </h3>
-            <p style={{ fontSize: "15px", color: "#475569" }}>
+            <p
+              style={{ fontSize: isMobile ? "14px" : "15px", color: "#475569" }}
+            >
               Safe authentication system using JWT-based login.
             </p>
           </div>
         </div>
       </div>
 
-      <div style={styles.whySection}>
-        <h2 style={styles.sectionTitle}>Why Use This Platform?</h2>
+      <div style={getStyles(isMobile).whySection}>
+        <h2 style={getStyles(isMobile).sectionTitle}>Why Use This Platform?</h2>
 
-        <div style={styles.whyGrid}>
+        <div style={getStyles(isMobile).whyGrid}>
           <div data-aos="fade-up">
             <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
               🎯 Stay Updated
@@ -184,15 +233,15 @@ function Home() {
         </div>
       </div>
 
-      <div style={styles.ctaSection} data-aos="fade-up">
-        <h2 style={styles.ctaTitle}>Start Your Journey Today</h2>
+      <div style={getStyles(isMobile).ctaSection} data-aos="fade-up">
+        <h2 style={getStyles(isMobile).ctaTitle}>Start Your Journey Today</h2>
 
-        <p style={styles.ctaText}>
+        <p style={getStyles(isMobile).ctaText}>
           Explore events, join clubs, and make the most out of your campus life.
         </p>
 
         <button
-          style={styles.ctaButton}
+          style={getStyles(isMobile).ctaButton}
           onClick={() => navigate("/events")}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = "scale(1.06) translateY(-2px)";
@@ -211,9 +260,9 @@ function Home() {
   );
 }
 
-const styles = {
+const getStyles = (isMobile) => ({
   hero: {
-    height: "90vh",
+    height: isMobile ? "70vh" : "90vh",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -226,19 +275,19 @@ const styles = {
   },
   glow: {
     position: "absolute",
-    width: "500px",
-    height: "500px",
+    width: isMobile ? "300px" : "500px",
+    height: isMobile ? "300px" : "500px",
     background: "rgba(59,130,246,0.3)",
     filter: "blur(120px)",
     top: "-100px",
-    left: "-100px",
+    left: isMobile ? "-150px" : "-100px",
     zIndex: 0,
     pointerEvents: "none",
   },
   overlay: {
     textAlign: "center",
-    maxWidth: "700px",
-    padding: "40px",
+    maxWidth: isMobile ? "90%" : "700px",
+    padding: isMobile ? "24px" : "40px",
     backdropFilter: "blur(10px)",
     background: "rgba(255,255,255,0.05)",
     borderRadius: "12px",
@@ -248,26 +297,27 @@ const styles = {
   },
 
   title: {
-    fontSize: "60px",
+    fontSize: isMobile ? "32px" : "60px",
     fontWeight: "700",
-    marginBottom: "20px",
+    marginBottom: isMobile ? "12px" : "20px",
   },
 
   subtitle: {
-    fontSize: "20px",
-    marginBottom: "30px",
+    fontSize: isMobile ? "15px" : "20px",
+    marginBottom: isMobile ? "20px" : "30px",
     color: "#c7d2fe",
   },
 
   buttons: {
     display: "flex",
     justifyContent: "center",
-    gap: "15px",
+    gap: isMobile ? "10px" : "15px",
+    flexWrap: isMobile ? "wrap" : "nowrap",
   },
 
   primaryBtn: {
-    padding: "12px 24px",
-    fontSize: "16px",
+    padding: isMobile ? "10px 18px" : "12px 24px",
+    fontSize: isMobile ? "14px" : "16px",
     background: "linear-gradient(135deg, #2563eb, #3b82f6)",
     color: "white",
     border: "none",
@@ -275,20 +325,24 @@ const styles = {
     cursor: "pointer",
     fontWeight: "600",
     transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
+    flex: isMobile ? "1 1 auto" : "0 0 auto",
+    minWidth: isMobile ? "120px" : "auto",
   },
 
   secondaryBtn: {
-    padding: "12px 24px",
-    fontSize: "16px",
+    padding: isMobile ? "10px 18px" : "12px 24px",
+    fontSize: isMobile ? "14px" : "16px",
     backgroundColor: "transparent",
     color: "white",
     border: "1px solid #c7d2fe",
     borderRadius: "8px",
     cursor: "pointer",
     transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
+    flex: isMobile ? "1 1 auto" : "0 0 auto",
+    minWidth: isMobile ? "120px" : "auto",
   },
   section: {
-    padding: "80px 20px",
+    padding: isMobile ? "40px 16px" : "80px 20px",
     textAlign: "center",
     background: `
   linear-gradient(180deg, #f8fafc, #eef2ff),
@@ -299,20 +353,21 @@ const styles = {
   },
 
   sectionTitle: {
-    fontSize: "36px",
+    fontSize: isMobile ? "24px" : "36px",
     fontWeight: "600",
-    marginBottom: "20px",
+    marginBottom: isMobile ? "12px" : "20px",
   },
 
   sectionText: {
-    maxWidth: "700px",
+    maxWidth: isMobile ? "100%" : "700px",
     margin: "0 auto",
-    fontSize: "18px",
+    fontSize: isMobile ? "15px" : "18px",
     color: "#475569",
-    lineHeight: "1.7",
+    lineHeight: "1.6",
+    padding: isMobile ? "0 8px" : "0",
   },
   featuresSection: {
-    padding: "80px 20px",
+    padding: isMobile ? "40px 16px" : "80px 20px",
     textAlign: "center",
     background: `linear-gradient(135deg, #e0f2fe, #f0f9ff, #f8fafc)`,
     borderBottom: "1px solid #e2e8f0",
@@ -320,13 +375,15 @@ const styles = {
 
   featuresGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: "20px",
-    marginTop: "40px",
+    gridTemplateColumns: isMobile
+      ? "1fr"
+      : "repeat(auto-fit, minmax(220px, 1fr))",
+    gap: isMobile ? "12px" : "20px",
+    marginTop: isMobile ? "24px" : "40px",
   },
 
   featureCard: {
-    padding: "22px",
+    padding: isMobile ? "16px" : "22px",
     borderRadius: "14px",
     background: "white",
     boxShadow: "0 6px 25px rgba(0,0,0,0.08)",
@@ -339,7 +396,7 @@ const styles = {
     boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
   },
   whySection: {
-    padding: "80px 20px",
+    padding: isMobile ? "40px 16px" : "80px 20px",
     textAlign: "center",
     background: `
   linear-gradient(135deg, #e0e7ff, #f8fafc),
@@ -350,12 +407,14 @@ const styles = {
 
   whyGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: "30px",
-    marginTop: "40px",
+    gridTemplateColumns: isMobile
+      ? "1fr"
+      : "repeat(auto-fit, minmax(220px, 1fr))",
+    gap: isMobile ? "16px" : "30px",
+    marginTop: isMobile ? "24px" : "40px",
   },
   ctaSection: {
-    padding: "80px 20px",
+    padding: isMobile ? "40px 16px" : "80px 20px",
     textAlign: "center",
     background: "linear-gradient(135deg, #1e3a8a, #0f172a)",
     color: "white",
@@ -363,19 +422,19 @@ const styles = {
   },
 
   ctaTitle: {
-    fontSize: "36px",
-    marginBottom: "15px",
+    fontSize: isMobile ? "24px" : "36px",
+    marginBottom: isMobile ? "10px" : "15px",
   },
 
   ctaText: {
-    fontSize: "16px",
-    marginBottom: "25px",
+    fontSize: isMobile ? "14px" : "16px",
+    marginBottom: isMobile ? "16px" : "25px",
     color: "#c7d2fe",
   },
 
   ctaButton: {
-    padding: "12px 28px",
-    fontSize: "16px",
+    padding: isMobile ? "10px 20px" : "12px 28px",
+    fontSize: isMobile ? "14px" : "16px",
     background: "linear-gradient(135deg, #2563eb, #60a5fa)",
     color: "white",
     border: "none",
@@ -384,6 +443,8 @@ const styles = {
     fontWeight: "600",
     transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
   },
-};
+});
+
+const styles = getStyles(false);
 
 export default Home;

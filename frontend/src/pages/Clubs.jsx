@@ -5,6 +5,16 @@ import "../App.css";
 
 function Clubs() {
   const [clubs, setClubs] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/clubs")
@@ -29,23 +39,23 @@ function Clubs() {
   }, [clubs]);
 
   return (
-    <div style={styles.pageContainer}>
+    <div style={getStyles(isMobile).pageContainer}>
       {/* Header Section */}
-      <div style={styles.headerSection}>
-        <div style={styles.headerContent}>
-          <h2 style={styles.headerTitle}>Student Clubs</h2>
-          <p style={styles.headerSubtitle}>
+      <div style={getStyles(isMobile).headerSection}>
+        <div style={getStyles(isMobile).headerContent}>
+          <h2 style={getStyles(isMobile).headerTitle}>Student Clubs</h2>
+          <p style={getStyles(isMobile).headerSubtitle}>
             Explore and join student clubs and communities
           </p>
         </div>
       </div>
 
-      <main style={styles.container}>
-        <div style={styles.cardsGrid}>
+      <main style={getStyles(isMobile).container}>
+        <div style={getStyles(isMobile).cardsGrid}>
           {clubs.map((club, index) => (
             <div
               key={club._id}
-              style={styles.clubCard}
+              style={getStyles(isMobile).clubCard}
               data-aos="fade-up"
               data-aos-duration="800"
               data-aos-delay={`${index * 100}`}
@@ -92,9 +102,11 @@ function Clubs() {
                 {club.name}
               </h4>
 
-              <div style={styles.clubCategory}>{club.category}</div>
+              <div style={getStyles(isMobile).clubCategory}>
+                {club.category}
+              </div>
 
-              <div style={styles.clubDesc}>{club.description}</div>
+              <div style={getStyles(isMobile).clubDesc}>{club.description}</div>
             </div>
           ))}
         </div>
@@ -105,7 +117,7 @@ function Clubs() {
 
 export default Clubs;
 
-const styles = {
+const getStyles = (isMobile) => ({
   pageContainer: {
     minHeight: "100vh",
     background: "linear-gradient(135deg, #f5f7fa, #e9eff5)",
@@ -113,7 +125,7 @@ const styles = {
   headerSection: {
     background: "linear-gradient(135deg, #0f172a, #1e3a8a)",
     color: "white",
-    padding: "60px 20px",
+    padding: isMobile ? "40px 16px" : "60px 20px",
     textAlign: "center",
     borderBottom: "1px solid rgba(37, 99, 235, 0.3)",
   },
@@ -122,51 +134,53 @@ const styles = {
     margin: "0 auto",
   },
   headerTitle: {
-    fontSize: "42px",
+    fontSize: isMobile ? "28px" : "42px",
     fontWeight: "700",
     margin: 0,
     marginBottom: "12px",
   },
   headerSubtitle: {
-    fontSize: "18px",
+    fontSize: isMobile ? "14px" : "18px",
     color: "#c7d2fe",
     margin: "12px 0 0",
   },
   container: {
     maxWidth: "1200px",
     margin: "40px auto",
-    padding: "0 20px",
+    padding: isMobile ? "0 12px" : "0 20px",
   },
   cardsGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-    gap: "24px",
+    gridTemplateColumns: isMobile
+      ? "1fr"
+      : "repeat(auto-fill, minmax(320px, 1fr))",
+    gap: isMobile ? "16px" : "24px",
     marginBottom: "40px",
   },
   clubCard: {
     background: "white",
     borderRadius: "14px",
-    padding: "20px",
+    padding: isMobile ? "14px" : "20px",
     boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
     cursor: "pointer",
     transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
   },
   clubCategory: {
-    fontSize: "13px",
-    color: "#64748b",
-    marginBottom: "8px",
+    fontSize: isMobile ? "11px" : "13px",
     fontWeight: "500",
     backgroundColor: "rgba(37, 99, 235, 0.1)",
     display: "inline-block",
-    padding: "4px 12px",
+    padding: isMobile ? "3px 10px" : "4px 12px",
     borderRadius: "20px",
     color: "#2563eb",
     marginBottom: "12px",
   },
   clubDesc: {
-    fontSize: "14px",
+    fontSize: isMobile ? "13px" : "14px",
     color: "#475569",
     marginBottom: "12px",
     lineHeight: "1.5",
   },
-};
+});
+
+const styles = getStyles(false);

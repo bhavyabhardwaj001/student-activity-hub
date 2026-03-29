@@ -1,20 +1,32 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function Navbar() {
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
   const token = localStorage.getItem("token");
   return (
-    <nav style={styles.nav}>
-      <h2 style={styles.logo}>Student Activities Hub</h2>
+    <nav style={getStyles(isMobile).nav}>
+      <h2 style={getStyles(isMobile).logo}>Student Activities Hub</h2>
 
-      <div style={styles.links}>
+      <div style={getStyles(isMobile).links}>
         <Link
           to="/"
-          style={styles.link}
+          style={getStyles(isMobile).link}
           onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
           onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
         >
@@ -22,7 +34,7 @@ function Navbar() {
         </Link>
         <Link
           to="/events"
-          style={styles.link}
+          style={getStyles(isMobile).link}
           onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
           onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
         >
@@ -30,7 +42,7 @@ function Navbar() {
         </Link>
         <Link
           to="/my-events"
-          style={styles.link}
+          style={getStyles(isMobile).link}
           onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
           onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
         >
@@ -38,7 +50,7 @@ function Navbar() {
         </Link>
         <Link
           to="/clubs"
-          style={styles.link}
+          style={getStyles(isMobile).link}
           onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
           onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
         >
@@ -48,7 +60,7 @@ function Navbar() {
         {!token && (
           <Link
             to="/login"
-            style={styles.link}
+            style={getStyles(isMobile).link}
             onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
             onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
           >
@@ -59,7 +71,7 @@ function Navbar() {
         {!token && (
           <Link
             to="/register"
-            style={styles.link}
+            style={getStyles(isMobile).link}
             onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
             onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
           >
@@ -69,20 +81,20 @@ function Navbar() {
 
         {token && (
           <span
-  style={styles.link}
-  onClick={handleLogout}
-  onMouseEnter={(e) => (e.target.style.color = "#60a5fa")}
-  onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
->
-  Logout
-</span>
+            style={getStyles(isMobile).link}
+            onClick={handleLogout}
+            onMouseEnter={(e) => (e.target.style.color = "#60a5fa")}
+            onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
+          >
+            Logout
+          </span>
         )}
       </div>
     </nav>
   );
 }
 
-const styles = {
+const getStyles = (isMobile) => ({
   nav: {
     position: "sticky",
     top: 0,
@@ -90,7 +102,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "12px 40px",
+    padding: isMobile ? "10px 16px" : "12px 40px",
     backdropFilter: "blur(12px)",
     background:
       "linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 58, 138, 0.8))",
@@ -99,20 +111,24 @@ const styles = {
   },
   logo: {
     margin: 0,
-    fontSize: "22px",
+    fontSize: isMobile ? "16px" : "22px",
     fontWeight: "700",
     letterSpacing: "0.5px",
     color: "white",
+    whiteSpace: isMobile ? "nowrap" : "normal",
   },
   links: {
     display: "flex",
-    gap: "20px",
+    gap: isMobile ? "10px" : "20px",
+    flexWrap: isMobile ? "wrap" : "nowrap",
   },
   link: {
     color: "#e2e8f0",
     textDecoration: "none",
     fontWeight: "500",
     transition: "all 0.2s ease",
+    fontSize: isMobile ? "13px" : "14px",
+    cursor: "pointer",
   },
   logout: {
     color: "white",
@@ -125,6 +141,8 @@ const styles = {
     fontFamily: "inherit",
     padding: "0",
   },
-};
+});
+
+const styles = getStyles(false);
 
 export default Navbar;

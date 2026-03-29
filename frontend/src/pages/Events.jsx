@@ -9,6 +9,16 @@ function Events() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/events")
@@ -78,40 +88,42 @@ function Events() {
     userId = decoded.id;
   }
   return (
-    <div style={styles.pageContainer}>
+    <div style={getStyles(isMobile).pageContainer}>
       {/* Header Section */}
-      <div style={styles.headerSection}>
-        <div style={styles.headerContent}>
-          <h2 style={styles.headerTitle}>Upcoming Events</h2>
-          <p style={styles.headerSubtitle}>
+      <div style={getStyles(isMobile).headerSection}>
+        <div style={getStyles(isMobile).headerContent}>
+          <h2 style={getStyles(isMobile).headerTitle}>Upcoming Events</h2>
+          <p style={getStyles(isMobile).headerSubtitle}>
             Explore and register for exciting campus activities
           </p>
         </div>
       </div>
 
-      <main style={styles.container}>
-        {loading && <p style={styles.loadingText}>Loading events...</p>}
-
-        {!loading && events.length === 0 && (
-          <p style={styles.loadingText}>No events available.</p>
+      <main style={getStyles(isMobile).container}>
+        {loading && (
+          <p style={getStyles(isMobile).loadingText}>Loading events...</p>
         )}
 
-        <div style={styles.searchContainer}>
+        {!loading && events.length === 0 && (
+          <p style={getStyles(isMobile).loadingText}>No events available.</p>
+        )}
+
+        <div style={getStyles(isMobile).searchContainer}>
           <input
             type="text"
             placeholder="Search events..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            style={styles.searchInput}
+            style={getStyles(isMobile).searchInput}
           />
         </div>
 
-        <div style={styles.filterContainer}>
+        <div style={getStyles(isMobile).filterContainer}>
           <button
             onClick={() => setFilter("All")}
             style={{
-              ...styles.filterBtn,
-              ...(filter === "All" ? styles.filterBtnActive : {}),
+              ...getStyles(isMobile).filterBtn,
+              ...(filter === "All" ? getStyles(isMobile).filterBtnActive : {}),
             }}
             onMouseEnter={(e) => {
               if (filter !== "All") {
@@ -129,8 +141,10 @@ function Events() {
           <button
             onClick={() => setFilter("Technical")}
             style={{
-              ...styles.filterBtn,
-              ...(filter === "Technical" ? styles.filterBtnActive : {}),
+              ...getStyles(isMobile).filterBtn,
+              ...(filter === "Technical"
+                ? getStyles(isMobile).filterBtnActive
+                : {}),
             }}
             onMouseEnter={(e) => {
               if (filter !== "Technical") {
@@ -148,8 +162,10 @@ function Events() {
           <button
             onClick={() => setFilter("Cultural")}
             style={{
-              ...styles.filterBtn,
-              ...(filter === "Cultural" ? styles.filterBtnActive : {}),
+              ...getStyles(isMobile).filterBtn,
+              ...(filter === "Cultural"
+                ? getStyles(isMobile).filterBtnActive
+                : {}),
             }}
             onMouseEnter={(e) => {
               if (filter !== "Cultural") {
@@ -167,8 +183,10 @@ function Events() {
           <button
             onClick={() => setFilter("Sports")}
             style={{
-              ...styles.filterBtn,
-              ...(filter === "Sports" ? styles.filterBtnActive : {}),
+              ...getStyles(isMobile).filterBtn,
+              ...(filter === "Sports"
+                ? getStyles(isMobile).filterBtnActive
+                : {}),
             }}
             onMouseEnter={(e) => {
               if (filter !== "Sports") {
@@ -186,8 +204,10 @@ function Events() {
           <button
             onClick={() => setFilter("Management")}
             style={{
-              ...styles.filterBtn,
-              ...(filter === "Management" ? styles.filterBtnActive : {}),
+              ...getStyles(isMobile).filterBtn,
+              ...(filter === "Management"
+                ? getStyles(isMobile).filterBtnActive
+                : {}),
             }}
             onMouseEnter={(e) => {
               if (filter !== "Management") {
@@ -203,7 +223,7 @@ function Events() {
             Management
           </button>
         </div>
-        <div style={styles.cardsGrid}>
+        <div style={getStyles(isMobile).cardsGrid}>
           {events
             .filter((event) => {
               const matchesCategory =
@@ -222,7 +242,7 @@ function Events() {
               return (
                 <div
                   key={event._id}
-                  style={styles.eventCard}
+                  style={getStyles(isMobile).eventCard}
                   data-aos="fade-up"
                   data-aos-duration="800"
                   data-aos-delay={`${index * 100}`}
@@ -234,7 +254,7 @@ function Events() {
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "none";
                     e.currentTarget.style.boxShadow =
-                      styles.eventCard.boxShadow;
+                      getStyles(isMobile).eventCard.boxShadow;
                   }}
                 >
                   {event.imageUrl && (
@@ -263,28 +283,34 @@ function Events() {
                     style={{
                       marginTop: 0,
                       marginBottom: "8px",
-                      fontSize: "18px",
+                      fontSize: isMobile ? "16px" : "18px",
                       color: "#1e293b",
                     }}
                   >
                     {event.title}
                   </h4>
 
-                  <div style={styles.eventMeta}>
+                  <div style={getStyles(isMobile).eventMeta}>
                     {event.category} |{" "}
                     {new Date(event.date).toLocaleDateString()}
                   </div>
 
-                  <div style={styles.eventLocation}>📍 {event.location}</div>
+                  <div style={getStyles(isMobile).eventLocation}>
+                    📍 {event.location}
+                  </div>
 
-                  <div style={styles.eventDesc}>{event.description}</div>
-                  <p style={styles.participantCount}>
+                  <div style={getStyles(isMobile).eventDesc}>
+                    {event.description}
+                  </div>
+                  <p style={getStyles(isMobile).participantCount}>
                     Participants: {event.participants?.length || 0}
                   </p>
                   <button
                     style={{
-                      ...styles.registerBtn,
-                      ...(alreadyRegistered ? styles.registerBtnDisabled : {}),
+                      ...getStyles(isMobile).registerBtn,
+                      ...(alreadyRegistered
+                        ? getStyles(isMobile).registerBtnDisabled
+                        : {}),
                     }}
                     onClick={() => handleRegister(event._id)}
                     disabled={alreadyRegistered}
@@ -316,7 +342,7 @@ function Events() {
 
 export default Events;
 
-const styles = {
+const getStyles = (isMobile) => ({
   pageContainer: {
     minHeight: "100vh",
     background: "linear-gradient(135deg, #f5f7fa, #e9eff5)",
@@ -324,7 +350,7 @@ const styles = {
   headerSection: {
     background: "linear-gradient(135deg, #0f172a, #1e3a8a)",
     color: "white",
-    padding: "60px 20px",
+    padding: isMobile ? "40px 16px" : "60px 20px",
     textAlign: "center",
     borderBottom: "1px solid rgba(37, 99, 235, 0.3)",
   },
@@ -333,20 +359,20 @@ const styles = {
     margin: "0 auto",
   },
   headerTitle: {
-    fontSize: "42px",
+    fontSize: isMobile ? "28px" : "42px",
     fontWeight: "700",
     marginBottom: "12px",
     margin: 0,
   },
   headerSubtitle: {
-    fontSize: "18px",
+    fontSize: isMobile ? "14px" : "18px",
     color: "#c7d2fe",
     margin: "12px 0 0",
   },
   container: {
     maxWidth: "1200px",
     margin: "40px auto",
-    padding: "0 20px",
+    padding: isMobile ? "0 12px" : "0 20px",
   },
   searchContainer: {
     display: "flex",
@@ -354,30 +380,26 @@ const styles = {
     marginBottom: "30px",
   },
   searchInput: {
-    padding: "12px 18px",
+    padding: isMobile ? "10px 14px" : "12px 18px",
     width: "100%",
-    maxWidth: "400px",
-    fontSize: "16px",
+    maxWidth: isMobile ? "300px" : "400px",
+    fontSize: isMobile ? "14px" : "16px",
     borderRadius: "8px",
     border: "2px solid #e2e8f0",
     transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
     boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
     outline: "none",
-    ":focus": {
-      borderColor: "#2563eb",
-      boxShadow: "0 4px 15px rgba(37, 99, 235, 0.2)",
-    },
   },
   filterContainer: {
     display: "flex",
-    gap: "12px",
+    gap: isMobile ? "8px" : "12px",
     marginBottom: "30px",
     flexWrap: "wrap",
     justifyContent: "center",
   },
   filterBtn: {
-    padding: "10px 20px",
-    fontSize: "14px",
+    padding: isMobile ? "8px 14px" : "10px 20px",
+    fontSize: isMobile ? "12px" : "14px",
     fontWeight: "500",
     borderRadius: "8px",
     border: "1px solid #e2e8f0",
@@ -394,44 +416,46 @@ const styles = {
   },
   cardsGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-    gap: "24px",
+    gridTemplateColumns: isMobile
+      ? "1fr"
+      : "repeat(auto-fill, minmax(320px, 1fr))",
+    gap: isMobile ? "16px" : "24px",
     marginBottom: "40px",
   },
   eventCard: {
     background: "white",
     borderRadius: "14px",
-    padding: "20px",
+    padding: isMobile ? "14px" : "20px",
     boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
     cursor: "pointer",
     transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
   },
   eventMeta: {
-    fontSize: "13px",
+    fontSize: isMobile ? "12px" : "13px",
     color: "#64748b",
     marginBottom: "8px",
     fontWeight: "500",
   },
   eventLocation: {
-    fontSize: "13px",
+    fontSize: isMobile ? "12px" : "13px",
     color: "#475569",
     marginBottom: "8px",
   },
   eventDesc: {
-    fontSize: "14px",
+    fontSize: isMobile ? "13px" : "14px",
     color: "#475569",
     marginBottom: "12px",
     lineHeight: "1.5",
   },
   participantCount: {
-    fontSize: "13px",
+    fontSize: isMobile ? "12px" : "13px",
     marginTop: "8px",
     color: "#64748b",
   },
   registerBtn: {
     marginTop: "16px",
-    padding: "12px 20px",
-    fontSize: "14px",
+    padding: isMobile ? "10px 14px" : "12px 20px",
+    fontSize: isMobile ? "12px" : "14px",
     fontWeight: "600",
     border: "none",
     borderRadius: "8px",
@@ -449,8 +473,10 @@ const styles = {
   },
   loadingText: {
     textAlign: "center",
-    fontSize: "16px",
+    fontSize: isMobile ? "14px" : "16px",
     color: "#64748b",
-    padding: "40px 20px",
+    padding: isMobile ? "20px 12px" : "40px 20px",
   },
-};
+});
+
+const styles = getStyles(false);
