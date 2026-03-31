@@ -95,17 +95,22 @@
   display: flex;
   flex-direction: column;
   gap: 7px;
+  position: relative;
 }
 
 .login-field label {
-  font-size: 1rem;
-  color: #2563eb;
-  font-weight: 500;
-  margin-bottom: 2px;
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  color: #6b7280;
+  font-size: 0.95rem;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  background: transparent;
 }
 
 .login-input {
-  padding: 10px 14px;
+  padding: 14px 14px;
   border-radius: 10px;
   border: 1.5px solid #c7d2fe;
   background: rgba(255, 255, 255, 0.85);
@@ -120,7 +125,15 @@
   border: 1.5px solid #2563eb;
   box-shadow: 0 2px 12px #60a5fa33;
 }
-
+.login-input:focus + label,
+.login-input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 10px;
+  font-size: 0.75rem;
+  color: #2563eb;
+  background: white;
+  padding: 0 4px;
+}
 .login-btn {
   margin-top: 10px;
   padding: 12px 0;

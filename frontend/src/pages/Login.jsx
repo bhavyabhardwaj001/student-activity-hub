@@ -100,37 +100,38 @@ function Login() {
 
         <form onSubmit={handleSubmit} className="login-form">
           <motion.div
-            className="login-field"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            <label>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoFocus
-              className="login-input"
-            />
-          </motion.div>
+  className="login-field"
+  initial={{ opacity: 0, x: -30 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ delay: 0.4 }}
+>
+  <input
+    type="email"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    required
+    className="login-input"
+    placeholder=" "
+  />
+  <label>Email</label>
+</motion.div>
 
           <motion.div
-            className="login-field"
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="login-input"
-            />
-          </motion.div>
+  className="login-field"
+  initial={{ opacity: 0, x: 30 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ delay: 0.5 }}
+>
+  <input
+    type="password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    required
+    className="login-input"
+    placeholder=" "
+  />
+  <label>Password</label>
+</motion.div>
 
           {/* ✅ Error message */}
           {error && <p className="error-text">{error}</p>}
