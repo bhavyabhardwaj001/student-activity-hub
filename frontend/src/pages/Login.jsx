@@ -43,46 +43,54 @@ function Login() {
 
   return (
     <div className="login-bg">
-      {/* Animated Background */}
-      <svg
-        className="login-bg-svg"
-        width="100%"
-        height="100%"
-        viewBox="0 0 800 600"
-        fill="none"
-      >
-        <motion.ellipse
-          cx="200"
-          cy="300"
-          rx="180"
-          ry="120"
-          fill="#60a5fa"
-          fillOpacity="0.25"
-          animate={{
-            cx: [200, 220, 200],
-            cy: [300, 320, 300],
-            rx: [180, 200, 180],
-            ry: [120, 140, 120],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        <motion.ellipse
-          cx="600"
-          cy="350"
-          rx="140"
-          ry="90"
-          fill="#2563eb"
-          fillOpacity="0.18"
-          animate={{
-            cx: [600, 580, 600],
-            cy: [350, 370, 350],
-            rx: [140, 160, 140],
-            ry: [90, 110, 90],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </svg>
+      {/* Magical Animated Starfield Background */}
+      <div className="login-bg-svg">
+        {[...Array(36)].map((_, i) => {
+          // Randomize initial position and animation for each star
+          const top = Math.random() * 95;
+          const left = Math.random() * 95;
+          const delay = Math.random() * 4;
+          const duration = 5 + Math.random() * 5;
+          const size = 4 + Math.random() * 6;
+          return (
+            <motion.span
+              key={i}
+              className="star"
+              style={{
+                top: `${top}%`,
+                left: `${left}%`,
+                width: `${size}px`,
+                height: `${size}px`,
+              }}
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{
+                opacity: [0, 1, 1, 0],
+                scale: [0.7, 1.2, 0.7],
+                background: [
+                  "linear-gradient(135deg, #fff 60%, #60a5fa 100%)",
+                  "linear-gradient(135deg, #60a5fa 60%, #2563eb 100%)",
+                  "linear-gradient(135deg, #2563eb 60%, #f59e0b 100%)",
+                  "linear-gradient(135deg, #f59e0b 60%, #fff 100%)",
+                  "linear-gradient(135deg, #fff 60%, #60a5fa 100%)",
+                ],
+                filter: [
+                  "drop-shadow(0 0 8px #60a5fa88)",
+                  "drop-shadow(0 0 16px #2563eb88)",
+                  "drop-shadow(0 0 12px #f59e0b88)",
+                  "drop-shadow(0 0 8px #60a5fa88)",
+                ],
+              }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                repeatType: "mirror",
+                delay,
+                ease: "easeInOut",
+              }}
+            />
+          );
+        })}
+      </div>
 
       <motion.div
         className="login-glass-card"
@@ -100,38 +108,38 @@ function Login() {
 
         <form onSubmit={handleSubmit} className="login-form">
           <motion.div
-  className="login-field"
-  initial={{ opacity: 0, x: -30 }}
-  animate={{ opacity: 1, x: 0 }}
-  transition={{ delay: 0.4 }}
->
-  <input
-    type="email"
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-    required
-    className="login-input"
-    placeholder=" "
-  />
-  <label>Email</label>
-</motion.div>
+            className="login-field"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="login-input"
+              placeholder=" "
+            />
+            <label>Email</label>
+          </motion.div>
 
           <motion.div
-  className="login-field"
-  initial={{ opacity: 0, x: 30 }}
-  animate={{ opacity: 1, x: 0 }}
-  transition={{ delay: 0.5 }}
->
-  <input
-    type="password"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-    required
-    className="login-input"
-    placeholder=" "
-  />
-  <label>Password</label>
-</motion.div>
+            className="login-field"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="login-input"
+              placeholder=" "
+            />
+            <label>Password</label>
+          </motion.div>
 
           {/* ✅ Error message */}
           {error && <p className="error-text">{error}</p>}
