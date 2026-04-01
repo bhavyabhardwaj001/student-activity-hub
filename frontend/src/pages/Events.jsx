@@ -36,6 +36,7 @@ function Events() {
 
   // Modal state for demo payment
   const [modalOpen, setModalOpen] = useState(false);
+  const [selectedEventId, setSelectedEventId] = useState(null);
   // Initialize and reinitialize AOS with slower animation
   useEffect(() => {
     AOS.init({
@@ -74,6 +75,17 @@ function Events() {
 
       if (res.ok) {
         alert("Successfully registered for event!");
+        // Update the events state to reflect the new registration
+        setEvents((prevEvents) =>
+          prevEvents.map((event) =>
+            event._id === eventId
+              ? {
+                  ...event,
+                  participants: [...(event.participants || []), userId],
+                }
+              : event,
+          ),
+        );
       } else {
         alert(data.message || "Registration failed");
       }
@@ -315,7 +327,10 @@ function Events() {
                         ? getStyles(isMobile).registerBtnDisabled
                         : {}),
                     }}
-                    onClick={() => setModalOpen(true)}
+                    onClick={() => {
+                      setSelectedEventId(event._id);
+                      setModalOpen(true);
+                    }}
                     disabled={alreadyRegistered}
                     onMouseEnter={(e) => {
                       if (!alreadyRegistered) {
@@ -344,7 +359,9 @@ function Events() {
       <DemoPaymentModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        qrImage="/assets/qr-demo.png" // Place your QR image in public/assets/
+        qrImage="/assets/qr-demo.jpeg" // Place your QR image in public/assets/
+        eventId={selectedEventId}
+        onRegister={handleRegister}
         onSuccess={(ticketId) => {
           alert(`Payment Successful! Ticket ID: ${ticketId}`);
         }}

@@ -9,13 +9,18 @@ function randomTicketId() {
 export default function DemoPaymentModal({
   open,
   onClose,
-  qrImage = "/assets/qr-demo.png",
+  qrImage = "/assets/qr-demo.jpeg",
+  eventId,
+  onRegister,
   onSuccess,
 }) {
   const [success, setSuccess] = useState(false);
   const [ticketId, setTicketId] = useState("");
 
-  const handlePaid = () => {
+  const handlePaid = async () => {
+    if (onRegister && eventId) {
+      await onRegister(eventId);
+    }
     setSuccess(true);
     const id = randomTicketId();
     setTicketId(id);
