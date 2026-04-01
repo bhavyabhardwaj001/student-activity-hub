@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "../App.css";
+import DemoPaymentModal from "../components/DemoPaymentModal";
 
 function Events() {
   const [events, setEvents] = useState([]);
@@ -33,6 +34,8 @@ function Events() {
       });
   }, []);
 
+  // Modal state for demo payment
+  const [modalOpen, setModalOpen] = useState(false);
   // Initialize and reinitialize AOS with slower animation
   useEffect(() => {
     AOS.init({
@@ -312,7 +315,7 @@ function Events() {
                         ? getStyles(isMobile).registerBtnDisabled
                         : {}),
                     }}
-                    onClick={() => handleRegister(event._id)}
+                    onClick={() => setModalOpen(true)}
                     disabled={alreadyRegistered}
                     onMouseEnter={(e) => {
                       if (!alreadyRegistered) {
@@ -329,13 +332,23 @@ function Events() {
                       }
                     }}
                   >
-                    {alreadyRegistered ? "Registered" : "Register"}
+                    {alreadyRegistered ? "Registered" : "Pay & Register"}
                   </button>
                 </div>
               );
             })}
         </div>
       </main>
+
+      {/* Demo Payment Modal */}
+      <DemoPaymentModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        qrImage="/assets/qr-demo.png" // Place your QR image in public/assets/
+        onSuccess={(ticketId) => {
+          alert(`Payment Successful! Ticket ID: ${ticketId}`);
+        }}
+      />
     </div>
   );
 }
