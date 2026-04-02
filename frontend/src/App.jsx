@@ -7,6 +7,7 @@ import Clubs from "./pages/Clubs";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MyEvents from "./pages/MyEvents";
+import Explore from "./pages/Explore";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -48,6 +49,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route path="/explore" element={<Explore />} />
       </Routes>
     </BrowserRouter>
   );

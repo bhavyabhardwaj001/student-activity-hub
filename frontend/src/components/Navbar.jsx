@@ -57,6 +57,15 @@ function Navbar() {
           Clubs
         </Link>
 
+        <Link
+          to="/explore"
+          style={getStyles(isMobile).link}
+          onMouseEnter={(e) => (e.target.style.color = "#a78bfa")}
+          onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
+        >
+          Explore
+        </Link>
+
         {!token && (
           <Link
             to="/login"
