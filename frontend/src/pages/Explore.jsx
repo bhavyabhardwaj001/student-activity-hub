@@ -1,6 +1,7 @@
-import React from "react";
-import { motion } from "framer-motion";
-import "../components/DemoPaymentModal.css"; // Reuse glassmorphism styles
+import React, { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import "../App.css";
 
 // --- Mock Data ---
 const mockEvents = [
@@ -65,147 +66,357 @@ const exploreLinks = [
     title: "BookMyShow",
     url: "https://in.bookmyshow.com/",
     desc: "Discover more events on BookMyShow",
-    color: "#e11d48",
   },
   {
     title: "Meetup",
     url: "https://www.meetup.com/",
     desc: "Find meetups and communities",
-    color: "#2563eb",
   },
   {
     title: "Eventbrite",
     url: "https://www.eventbrite.com/",
     desc: "Explore global events on Eventbrite",
-    color: "#a21caf",
   },
 ];
 
-// --- Card Component ---
-function EventCard({ event, badge }) {
-  return (
-    <motion.div
-      className="explore-card glass"
-      whileHover={{ scale: 1.04, boxShadow: "0 6px 32px #60a5fa33" }}
-      transition={{ type: "spring", stiffness: 320, damping: 24 }}
-    >
-      <div className="explore-card-header">
-        <span className="explore-card-title">{event.title}</span>
-        {badge && <span className="explore-card-badge">{badge}</span>}
-      </div>
-      <div className="explore-card-meta">
-        <span className="explore-card-category">{event.category}</span>
-        {event.distance && (
-          <span className="explore-card-distance">📍 {event.distance}</span>
-        )}
-        {event.popularity && event.trending && (
-          <span className="explore-card-trending">🔥 {event.popularity} interested</span>
-        )}
-      </div>
-    </motion.div>
-  );
-}
-
-function ExploreLinkCard({ link }) {
-  return (
-    <motion.a
-      className="explore-link-card glass"
-      href={link.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      whileHover={{ scale: 1.05, boxShadow: `0 6px 32px ${link.color}44` }}
-      transition={{ type: "spring", stiffness: 320, damping: 24 }}
-      style={{ borderLeft: `5px solid ${link.color}` }}
-    >
-      <div className="explore-link-title">{link.title}</div>
-      <div className="explore-link-desc">{link.desc}</div>
-    </motion.a>
-  );
-}
-
 // --- Main Page ---
 export default function Explore() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Initialize and reinitialize AOS
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out",
+      once: false,
+    });
+  }, []);
+
+  useEffect(() => {
+    AOS.refresh();
+  }, []);
+
   // Simulate user interest
-  const userInterest = "Technical";
-  const aiRecommended = mockEvents.filter(e => e.aiRecommended);
-  const trending = mockEvents.filter(e => e.trending);
+  const aiRecommended = mockEvents.filter((e) => e.aiRecommended);
+  const trending = mockEvents.filter((e) => e.trending);
   const nearby = mockEvents;
 
   return (
-    <div className="explore-root">
-      <motion.div
-        className="explore-header"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-      >
-        <h1>Explore Events Near You</h1>
-        <div className="explore-subtext">✨ AI-powered recommendations</div>
-      </motion.div>
-
-      {/* Nearby Events */}
-      <motion.section
-        className="explore-section"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7, delay: 0.1 }}
-      >
-        <h2 className="explore-section-title">📍 Nearby Events</h2>
-        <div className="explore-card-list">
-          {nearby.map(event => (
-            <EventCard key={event.id} event={event} />
-          ))}
+    <div style={getStyles(isMobile).pageContainer}>
+      {/* Header Section */}
+      <div style={getStyles(isMobile).headerSection}>
+        <div style={getStyles(isMobile).headerContent}>
+          <h2 style={getStyles(isMobile).headerTitle}>Explore Events</h2>
+          <p style={getStyles(isMobile).headerSubtitle}>
+            Discover and explore exciting events near you
+          </p>
         </div>
-      </motion.section>
+      </div>
 
-      {/* AI Recommended */}
-      <motion.section
-        className="explore-section"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-      >
-        <h2 className="explore-section-title">✨ AI Recommended</h2>
-        <div className="explore-card-list">
-          {aiRecommended.map(event => (
-            <EventCard key={event.id} event={event} badge="AI Recommended" />
-          ))}
-        </div>
-      </motion.section>
+      <main style={getStyles(isMobile).container}>
+        {/* Nearby Events */}
+        <section style={getStyles(isMobile).section}>
+          <h3 style={getStyles(isMobile).sectionTitle}>📍 Nearby Events</h3>
+          <div style={getStyles(isMobile).cardsGrid}>
+            {nearby.map((event, index) => (
+              <div
+                key={event.id}
+                style={getStyles(isMobile).eventCard}
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay={`${index * 100}`}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-8px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 12px 35px rgba(0,0,0,0.15)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "none";
+                  e.currentTarget.style.boxShadow =
+                    getStyles(isMobile).eventCard.boxShadow;
+                }}
+              >
+                <div style={getStyles(isMobile).cardHeader}>
+                  <h4 style={getStyles(isMobile).cardTitle}>{event.title}</h4>
+                </div>
 
-      {/* Trending Events */}
-      <motion.section
-        className="explore-section"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7, delay: 0.3 }}
-      >
-        <h2 className="explore-section-title">🔥 Trending Events</h2>
-        <div className="explore-card-list">
-          {trending.map(event => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </div>
-      </motion.section>
+                <div style={getStyles(isMobile).categoryBadge}>
+                  {event.category}
+                </div>
 
-      {/* Explore More */}
-      <motion.section
-        className="explore-section"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7, delay: 0.4 }}
-      >
-        <h2 className="explore-section-title">🌐 Explore More</h2>
-        <div className="explore-link-list">
-          {exploreLinks.map(link => (
-            <ExploreLinkCard key={link.title} link={link} />
-          ))}
-        </div>
-      </motion.section>
+                {event.distance && (
+                  <div style={getStyles(isMobile).cardMeta}>
+                    <span style={{ fontWeight: 500 }}>Distance:</span>{" "}
+                    {event.distance}
+                  </div>
+                )}
+
+                {event.popularity && event.trending && (
+                  <div style={getStyles(isMobile).cardMeta}>
+                    <span style={{ fontWeight: 500 }}>Interest:</span> 🔥{" "}
+                    {event.popularity}
+                  </div>
+                )}
+
+                {event.aiRecommended && (
+                  <div style={getStyles(isMobile).aiRecommendedBadge}>
+                    ✨ AI Recommended
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* AI Recommended Section */}
+        <section style={getStyles(isMobile).section}>
+          <h3 style={getStyles(isMobile).sectionTitle}>✨ AI Recommended</h3>
+          <div style={getStyles(isMobile).cardsGrid}>
+            {aiRecommended.map((event, index) => (
+              <div
+                key={event.id}
+                style={getStyles(isMobile).eventCard}
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay={`${index * 100}`}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-8px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 12px 35px rgba(0,0,0,0.15)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "none";
+                  e.currentTarget.style.boxShadow =
+                    getStyles(isMobile).eventCard.boxShadow;
+                }}
+              >
+                <div style={getStyles(isMobile).cardHeader}>
+                  <h4 style={getStyles(isMobile).cardTitle}>{event.title}</h4>
+                </div>
+
+                <div style={getStyles(isMobile).categoryBadge}>
+                  {event.category}
+                </div>
+
+                {event.distance && (
+                  <div style={getStyles(isMobile).cardMeta}>
+                    <span style={{ fontWeight: 500 }}>Distance:</span>{" "}
+                    {event.distance}
+                  </div>
+                )}
+
+                {event.popularity && event.trending && (
+                  <div style={getStyles(isMobile).cardMeta}>
+                    <span style={{ fontWeight: 500 }}>Interest:</span> 🔥{" "}
+                    {event.popularity}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Trending Events Section */}
+        <section style={getStyles(isMobile).section}>
+          <h3 style={getStyles(isMobile).sectionTitle}>🔥 Trending Events</h3>
+          <div style={getStyles(isMobile).cardsGrid}>
+            {trending.map((event, index) => (
+              <div
+                key={event.id}
+                style={getStyles(isMobile).eventCard}
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay={`${index * 100}`}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-8px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 12px 35px rgba(0,0,0,0.15)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "none";
+                  e.currentTarget.style.boxShadow =
+                    getStyles(isMobile).eventCard.boxShadow;
+                }}
+              >
+                <div style={getStyles(isMobile).cardHeader}>
+                  <h4 style={getStyles(isMobile).cardTitle}>{event.title}</h4>
+                </div>
+
+                <div style={getStyles(isMobile).categoryBadge}>
+                  {event.category}
+                </div>
+
+                {event.distance && (
+                  <div style={getStyles(isMobile).cardMeta}>
+                    <span style={{ fontWeight: 500 }}>Distance:</span>{" "}
+                    {event.distance}
+                  </div>
+                )}
+
+                {event.popularity && event.trending && (
+                  <div style={getStyles(isMobile).cardMeta}>
+                    <span style={{ fontWeight: 500 }}>Interest:</span> 🔥{" "}
+                    {event.popularity}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Explore More Section */}
+        <section style={getStyles(isMobile).section}>
+          <h3 style={getStyles(isMobile).sectionTitle}>🌐 Explore More</h3>
+          <div style={getStyles(isMobile).cardsGrid}>
+            {exploreLinks.map((link) => (
+              <a
+                key={link.title}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={getStyles(isMobile).exploreCard}
+                data-aos="fade-up"
+                data-aos-duration="800"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-8px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 12px 35px rgba(0,0,0,0.15)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "none";
+                  e.currentTarget.style.boxShadow =
+                    getStyles(isMobile).exploreCard.boxShadow;
+                }}
+              >
+                <h4 style={getStyles(isMobile).cardTitle}>{link.title}</h4>
+                <p style={getStyles(isMobile).linkDesc}>{link.desc}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
+
+const getStyles = (isMobile) => ({
+  pageContainer: {
+    minHeight: "100vh",
+    background: "linear-gradient(135deg, #f5f7fa, #e9eff5)",
+  },
+  headerSection: {
+    background: "linear-gradient(135deg, #0f172a, #1e3a8a)",
+    color: "white",
+    padding: isMobile ? "40px 16px" : "60px 20px",
+    textAlign: "center",
+    borderBottom: "1px solid rgba(37, 99, 235, 0.3)",
+  },
+  headerContent: {
+    maxWidth: "800px",
+    margin: "0 auto",
+  },
+  headerTitle: {
+    fontSize: isMobile ? "28px" : "42px",
+    fontWeight: "700",
+    margin: 0,
+    marginBottom: "12px",
+  },
+  headerSubtitle: {
+    fontSize: isMobile ? "14px" : "18px",
+    color: "#c7d2fe",
+    margin: "12px 0 0",
+  },
+  container: {
+    maxWidth: "1200px",
+    margin: "40px auto",
+    padding: isMobile ? "0 12px" : "0 20px",
+  },
+  section: {
+    marginBottom: "50px",
+  },
+  sectionTitle: {
+    fontSize: isMobile ? "20px" : "26px",
+    fontWeight: "700",
+    color: "#1e293b",
+    marginBottom: "24px",
+    margin: "0 0 24px 0",
+  },
+  cardsGrid: {
+    display: "grid",
+    gridTemplateColumns: isMobile
+      ? "1fr"
+      : "repeat(auto-fill, minmax(320px, 1fr))",
+    gap: isMobile ? "16px" : "24px",
+  },
+  eventCard: {
+    background: "white",
+    borderRadius: "14px",
+    padding: isMobile ? "14px" : "20px",
+    boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+    cursor: "pointer",
+    transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
+  },
+  exploreCard: {
+    background: "white",
+    borderRadius: "14px",
+    padding: isMobile ? "14px" : "20px",
+    boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+    cursor: "pointer",
+    transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
+    textDecoration: "none",
+    color: "inherit",
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
+  },
+  cardHeader: {
+    marginBottom: "8px",
+  },
+  cardTitle: {
+    marginTop: 0,
+    marginBottom: "8px",
+    fontSize: "18px",
+    color: "#1e293b",
+    fontWeight: "600",
+  },
+  categoryBadge: {
+    fontSize: isMobile ? "11px" : "13px",
+    fontWeight: "500",
+    backgroundColor: "rgba(37, 99, 235, 0.1)",
+    color: "#2563eb",
+    display: "inline-block",
+    borderRadius: "6px",
+    padding: "4px 10px",
+    marginBottom: "8px",
+  },
+  cardMeta: {
+    fontSize: isMobile ? "12px" : "13px",
+    color: "#64748b",
+    marginBottom: "6px",
+  },
+  aiRecommendedBadge: {
+    fontSize: isMobile ? "11px" : "12px",
+    fontWeight: "600",
+    backgroundColor: "linear-gradient(90deg, #a78bfa 0%, #60a5fa 100%)",
+    color: "white",
+    display: "inline-block",
+    borderRadius: "6px",
+    padding: "4px 10px",
+    marginTop: "8px",
+  },
+  linkDesc: {
+    fontSize: isMobile ? "13px" : "14px",
+    color: "#64748b",
+    margin: 0,
+    lineHeight: "1.4",
+  },
+});
