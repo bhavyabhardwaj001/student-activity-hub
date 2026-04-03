@@ -121,7 +121,9 @@ const mockEvents = [
     date: new Date("2026-05-01"),
     location: "Ravinder Bhavan",
     description: "First AI recommended event description.",
-    imageUrl: "https://assets-in.bmscdn.com/nmcms/desktop/media-desktop-bhuwin-experience-noor-e-daastaan-2026-2-21-t-10-15-14.jpg",
+    imageUrl:
+      "https://assets-in.bmscdn.com/nmcms/desktop/media-desktop-bhuwin-experience-noor-e-daastaan-2026-2-21-t-10-15-14.jpg",
+    url: "https://example.com/ai-event-1",
     participants: [],
   },
   {
@@ -136,7 +138,9 @@ const mockEvents = [
     date: new Date("2026-05-05"),
     location: "Tech Center, Campus B",
     description: "Second AI recommended event description.",
-    imageUrl: "https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-clay-modelling-workshop-0-2024-9-25-t-4-6-9.jpg",
+    imageUrl:
+      "https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-clay-modelling-workshop-0-2024-9-25-t-4-6-9.jpg",
+    url: "https://example.com/ai-event-2",
     participants: [],
   },
   {
@@ -151,7 +155,9 @@ const mockEvents = [
     date: new Date("2026-05-10"),
     location: "Innovation Space, Campus A",
     description: "Third AI recommended event description.",
-    imageUrl: "https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-blood-on-the-clocktower-social-deduction-game-0-2025-9-12-t-5-11-15.jpg ",
+    imageUrl:
+      "https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-blood-on-the-clocktower-social-deduction-game-0-2025-9-12-t-5-11-15.jpg ",
+    url: "https://example.com/ai-event-3",
     participants: [],
   },
 ];
@@ -257,14 +263,16 @@ export default function Explore() {
 
   // Simulate user interest
   const aiRecommended = events.filter((e) => e.aiRecommended);
-  const trendingRaw = events.filter((e) => e.trending || e.popularity >= 800);
+  const trendingRaw = events.filter(
+    (e) => !e.aiRecommended && (e.trending || e.popularity >= 800),
+  );
   const trending =
     trendingRaw.length > 0
       ? trendingRaw
-      : [...events]
+      : [...events.filter((e) => !e.aiRecommended)]
           .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
           .slice(0, 3);
-  const nearby = events;
+  const nearby = events.filter((e) => !e.aiRecommended);
 
   return (
     <div style={getStyles(isMobile).pageContainer}>
@@ -399,7 +407,19 @@ export default function Explore() {
                 return (
                   <div
                     key={event._id}
-                    style={getStyles(isMobile).eventCard}
+                    style={{
+                      ...getStyles(isMobile).eventCard,
+                      cursor: "pointer",
+                    }}
+                    onClick={(e) => {
+                      // Don't navigate if clicking on the register button
+                      if (
+                        e.target.tagName !== "BUTTON" &&
+                        !e.target.closest("button")
+                      ) {
+                        window.open(event.url, "_blank");
+                      }
+                    }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = "translateY(-8px)";
                       e.currentTarget.style.boxShadow =
