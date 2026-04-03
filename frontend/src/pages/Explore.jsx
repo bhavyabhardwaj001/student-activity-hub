@@ -206,7 +206,13 @@ export default function Explore() {
 
   // Simulate user interest
   const aiRecommended = events.filter((e) => e.aiRecommended);
-  const trending = events.filter((e) => e.trending);
+  const trendingRaw = events.filter((e) => e.trending || e.popularity >= 800);
+  const trending =
+    trendingRaw.length > 0
+      ? trendingRaw
+      : [...events]
+          .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+          .slice(0, 3);
   const nearby = events;
 
   return (
@@ -222,6 +228,12 @@ export default function Explore() {
       </div>
 
       <main style={getStyles(isMobile).container}>
+        <div
+          style={{ marginBottom: "20px", color: "#1e293b", fontWeight: 600 }}
+        >
+          Debug: Nearby={nearby.length}, AI={aiRecommended.length}, Trending=
+          {trending.length}, ExploreLinks={exploreLinks.length}
+        </div>
         {/* Nearby Events */}
         <section style={getStyles(isMobile).section}>
           <h3 style={getStyles(isMobile).sectionTitle}>📍 Nearby Events</h3>
@@ -232,9 +244,6 @@ export default function Explore() {
                 <div
                   key={event._id}
                   style={getStyles(isMobile).eventCard}
-                  data-aos="fade-up"
-                  data-aos-duration="800"
-                  data-aos-delay={`${index * 100}`}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-8px)";
                     e.currentTarget.style.boxShadow =
@@ -336,7 +345,9 @@ export default function Explore() {
           <h3 style={getStyles(isMobile).sectionTitle}>✨ AI Recommended</h3>
           <div style={getStyles(isMobile).cardsGrid}>
             {aiRecommended.length === 0 ? (
-              <p style={getStyles(isMobile).emptyMessage}>No AI recommended events yet.</p>
+              <p style={getStyles(isMobile).emptyMessage}>
+                No AI recommended events yet.
+              </p>
             ) : (
               aiRecommended.map((event, index) => {
                 const alreadyRegistered = event.participants?.includes(userId);
@@ -344,9 +355,6 @@ export default function Explore() {
                   <div
                     key={event._id}
                     style={getStyles(isMobile).eventCard}
-                    data-aos="fade-up"
-                    data-aos-duration="800"
-                    data-aos-delay={`${index * 100}`}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = "translateY(-8px)";
                       e.currentTarget.style.boxShadow =
@@ -449,7 +457,9 @@ export default function Explore() {
           <h3 style={getStyles(isMobile).sectionTitle}>🔥 Trending Events</h3>
           <div style={getStyles(isMobile).cardsGrid}>
             {trending.length === 0 ? (
-              <p style={getStyles(isMobile).emptyMessage}>No trending events right now.</p>
+              <p style={getStyles(isMobile).emptyMessage}>
+                No trending events right now.
+              </p>
             ) : (
               trending.map((event, index) => {
                 const alreadyRegistered = event.participants?.includes(userId);
@@ -457,103 +467,100 @@ export default function Explore() {
                   <div
                     key={event._id}
                     style={getStyles(isMobile).eventCard}
-                  data-aos="fade-up"
-                  data-aos-duration="800"
-                  data-aos-delay={`${index * 100}`}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-8px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 12px 35px rgba(0,0,0,0.15)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "none";
-                    e.currentTarget.style.boxShadow =
-                      getStyles(isMobile).eventCard.boxShadow;
-                  }}
-                >
-                  {event.imageUrl && (
-                    <img
-                      src={event.imageUrl}
-                      alt={event.title}
-                      style={{
-                        width: "100%",
-                        height: "180px",
-                        objectFit: "cover",
-                        borderRadius: "8px",
-                        marginBottom: "12px",
-                        transition:
-                          "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.transform = "scale(1.08) rotate(1deg)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.transform = "none";
-                      }}
-                    />
-                  )}
-
-                  <h4
-                    style={{
-                      marginTop: 0,
-                      marginBottom: "8px",
-                      fontSize: isMobile ? "16px" : "18px",
-                      color: "#1e293b",
-                    }}
-                  >
-                    {event.title}
-                  </h4>
-
-                  <div style={getStyles(isMobile).eventMeta}>
-                    {event.category} |{" "}
-                    {new Date(event.date).toLocaleDateString()}
-                  </div>
-
-                  <div style={getStyles(isMobile).eventLocation}>
-                    📍 {event.location}
-                  </div>
-
-                  <div style={getStyles(isMobile).eventDesc}>
-                    {event.description}
-                  </div>
-
-                  <p style={getStyles(isMobile).participantCount}>
-                    Participants: {event.participants?.length || 0}
-                  </p>
-
-                  <button
-                    style={{
-                      ...getStyles(isMobile).registerBtn,
-                      ...(alreadyRegistered
-                        ? getStyles(isMobile).registerBtnDisabled
-                        : {}),
-                    }}
-                    onClick={() => {
-                      setSelectedEventId(event._id);
-                      setModalOpen(true);
-                    }}
-                    disabled={alreadyRegistered}
                     onMouseEnter={(e) => {
-                      if (!alreadyRegistered) {
-                        e.target.style.background =
-                          "linear-gradient(135deg, #1d4ed8, #2563eb)";
-                        e.target.style.transform = "scale(1.05)";
-                      }
+                      e.currentTarget.style.transform = "translateY(-8px)";
+                      e.currentTarget.style.boxShadow =
+                        "0 12px 35px rgba(0,0,0,0.15)";
                     }}
                     onMouseLeave={(e) => {
-                      if (!alreadyRegistered) {
-                        e.target.style.background =
-                          "linear-gradient(135deg, #2563eb, #3b82f6)";
-                        e.target.style.transform = "none";
-                      }
+                      e.currentTarget.style.transform = "none";
+                      e.currentTarget.style.boxShadow =
+                        getStyles(isMobile).eventCard.boxShadow;
                     }}
                   >
-                    {alreadyRegistered ? "Registered" : "Pay & Register"}
-                  </button>
-                </div>
-              );
-            })
-          )}
+                    {event.imageUrl && (
+                      <img
+                        src={event.imageUrl}
+                        alt={event.title}
+                        style={{
+                          width: "100%",
+                          height: "180px",
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                          marginBottom: "12px",
+                          transition:
+                            "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.transform = "scale(1.08) rotate(1deg)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.transform = "none";
+                        }}
+                      />
+                    )}
+
+                    <h4
+                      style={{
+                        marginTop: 0,
+                        marginBottom: "8px",
+                        fontSize: isMobile ? "16px" : "18px",
+                        color: "#1e293b",
+                      }}
+                    >
+                      {event.title}
+                    </h4>
+
+                    <div style={getStyles(isMobile).eventMeta}>
+                      {event.category} |{" "}
+                      {new Date(event.date).toLocaleDateString()}
+                    </div>
+
+                    <div style={getStyles(isMobile).eventLocation}>
+                      📍 {event.location}
+                    </div>
+
+                    <div style={getStyles(isMobile).eventDesc}>
+                      {event.description}
+                    </div>
+
+                    <p style={getStyles(isMobile).participantCount}>
+                      Participants: {event.participants?.length || 0}
+                    </p>
+
+                    <button
+                      style={{
+                        ...getStyles(isMobile).registerBtn,
+                        ...(alreadyRegistered
+                          ? getStyles(isMobile).registerBtnDisabled
+                          : {}),
+                      }}
+                      onClick={() => {
+                        setSelectedEventId(event._id);
+                        setModalOpen(true);
+                      }}
+                      disabled={alreadyRegistered}
+                      onMouseEnter={(e) => {
+                        if (!alreadyRegistered) {
+                          e.target.style.background =
+                            "linear-gradient(135deg, #1d4ed8, #2563eb)";
+                          e.target.style.transform = "scale(1.05)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!alreadyRegistered) {
+                          e.target.style.background =
+                            "linear-gradient(135deg, #2563eb, #3b82f6)";
+                          e.target.style.transform = "none";
+                        }
+                      }}
+                    >
+                      {alreadyRegistered ? "Registered" : "Pay & Register"}
+                    </button>
+                  </div>
+                );
+              })
+            )}
           </div>
         </section>
 
@@ -561,15 +568,22 @@ export default function Explore() {
         <section style={getStyles(isMobile).section}>
           <h3 style={getStyles(isMobile).sectionTitle}>🌐 Explore More</h3>
           <div style={getStyles(isMobile).cardsGrid}>
-            {exploreLinks.map((link) => (
+            {(exploreLinks.length === 0
+              ? [
+                  {
+                    title: "No links found",
+                    url: "#",
+                    desc: "No additional explore links are available.",
+                  },
+                ]
+              : exploreLinks
+            ).map((link) => (
               <a
                 key={link.title}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={getStyles(isMobile).exploreCard}
-                data-aos="fade-up"
-                data-aos-duration="800"
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-8px)";
                   e.currentTarget.style.boxShadow =
