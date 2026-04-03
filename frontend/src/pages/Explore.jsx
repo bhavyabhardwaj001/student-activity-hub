@@ -119,11 +119,11 @@ const mockEvents = [
     trending: false,
     aiRecommended: true,
     date: new Date("2026-05-01"),
-    location: "Ravinder Bhavan",
-    description: "First AI recommended event description.",
+    location: "Ravinder Bhavan, Bhopal",
+    description: "Step into a world where music isn’t just heard—it’s felt. The Bhuwin Experience is more than just a concert; it’s an intimate journey through sound, emotions, and live-looping magic.",
     imageUrl:
       "https://assets-in.bmscdn.com/nmcms/desktop/media-desktop-bhuwin-experience-noor-e-daastaan-2026-2-21-t-10-15-14.jpg",
-    url: "https://example.com/ai-event-1",
+    url: "https://in.bookmyshow.com/events/bhuwin-experience/ET00438419",
     participants: [],
   },
   {
@@ -136,11 +136,12 @@ const mockEvents = [
     trending: false,
     aiRecommended: true,
     date: new Date("2026-05-05"),
-    location: "Tech Center, Campus B",
-    description: "Second AI recommended event description.",
+    location: "Cafe Coffee Day,Bhopal",
+    description:
+      "Step into a world of creativity, calm, and self-expression with our Clay Modelling Workshop. Unleash your inner artist as you shape and mold clay into unique creations.",
     imageUrl:
       "https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-clay-modelling-workshop-0-2024-9-25-t-4-6-9.jpg",
-    url: "https://example.com/ai-event-2",
+    url: "https://in.bookmyshow.com/events/clay-modelling-workshop/ET00383554",
     participants: [],
   },
   {
@@ -154,10 +155,11 @@ const mockEvents = [
     aiRecommended: true,
     date: new Date("2026-05-10"),
     location: "Innovation Space, Campus A",
-    description: "Third AI recommended event description.",
+    description:
+      "In the tranquil village of Ravenswood Bluff, a sinister presence lurks. As darkness falls, whispers of treachery and murder fill the air. Welcome to ",
     imageUrl:
       "https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-blood-on-the-clocktower-social-deduction-game-0-2025-9-12-t-5-11-15.jpg ",
-    url: "https://example.com/ai-event-3",
+    url: "https://in.bookmyshow.com/events/blood-on-the-clocktower-social-deduction-game/ET00462322",
     participants: [],
   },
 ];
