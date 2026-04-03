@@ -20,7 +20,8 @@ const mockEvents = [
     location: "Innovation Hub, Campus A",
     description:
       "Join us for an exciting meetup with tech innovators. Network, learn, and grow together.",
-    imageUrl: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fFRlY2glMjBJbm5vdmF0b3JzJTIwTWVldHVwfGVufDB8fDB8fHww",
+    imageUrl:
+      "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fFRlY2glMjBJbm5vdmF0b3JzJTIwTWVldHVwfGVufDB8fDB8fHww",
     participants: [],
   },
   {
@@ -36,7 +37,8 @@ const mockEvents = [
     location: "Main Auditorium, Campus B",
     description:
       "Experience diverse cultures through music, dance, food, and art performances.",
-    imageUrl: "https://images.unsplash.com/photo-1761853321751-01ac4a5d0f39?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGN1bHR1cmUlMjBmZXN0fGVufDB8fDB8fHww",
+    imageUrl:
+      "https://images.unsplash.com/photo-1761853321751-01ac4a5d0f39?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGN1bHR1cmUlMjBmZXN0fGVufDB8fDB8fHww",
     participants: [],
   },
   {
@@ -52,7 +54,8 @@ const mockEvents = [
     location: "Business Center, Campus A",
     description:
       "Watch innovative startups pitch their ideas to investors and mentors.",
-    imageUrl: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageUrl:
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     participants: [],
   },
   {
@@ -68,7 +71,8 @@ const mockEvents = [
     location: "Open Ground, Campus B",
     description:
       "Celebrate art and music with live performances, art installations, and creative workshops.",
-    imageUrl: "https://images.unsplash.com/photo-1636847458484-653f9d40011a?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageUrl:
+      "https://images.unsplash.com/photo-1636847458484-653f9d40011a?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     participants: [],
   },
   {
@@ -84,7 +88,8 @@ const mockEvents = [
     location: "Robotics Lab, Campus A",
     description:
       "Learn robotics fundamentals and build your own robot in this hands-on workshop.",
-    imageUrl: "https://plus.unsplash.com/premium_photo-1663091646722-41f500f34668?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Um9ib3RpY3MlMjBXb3Jrc2hvcHxlbnwwfHwwfHx8MA%3D%3D",
+    imageUrl:
+      "https://plus.unsplash.com/premium_photo-1663091646722-41f500f34668?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Um9ib3RpY3MlMjBXb3Jrc2hvcHxlbnwwfHwwfHx8MA%3D%3D",
     participants: [],
   },
   {
@@ -100,7 +105,8 @@ const mockEvents = [
     location: "Library Lounge, Campus B",
     description:
       "Share your poetry, stories, and prose with fellow literature enthusiasts.",
-    imageUrl: "https://plus.unsplash.com/premium_photo-1677567996070-68fa4181775a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGl0ZXJhdHVyZXxlbnwwfHwwfHx8MA%3D%3D",
+    imageUrl:
+      "https://plus.unsplash.com/premium_photo-1677567996070-68fa4181775a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGl0ZXJhdHVyZXxlbnwwfHwwfHx8MA%3D%3D",
     participants: [],
   },
 ];
