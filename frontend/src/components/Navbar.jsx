@@ -99,7 +99,7 @@ function Navbar() {
           <span
             style={getStyles(isMobile).link}
             onClick={handleLogout}
-            onMouseEnter={(e) => (e.target.style.color = "#60a5fa")}
+            onMouseEnter={(e) => (e.target.style.color = "#ff0000")}
             onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
           >
             Logout
