@@ -394,6 +394,17 @@ nav a:hover::after {
     gap: 12px;
   }
 }
+@keyframes yellowGlow {
+  0% {
+    text-shadow: 0 0 5px rgba(250, 204, 21, 0.4);
+  }
+  50% {
+    text-shadow: 0 0 14px rgba(250, 204, 21, 1);
+  }
+  100% {
+    text-shadow: 0 0 5px rgba(250, 204, 21, 0.4);
+  }
+}
 
 /* Extra Small - 360px and below */
 @media (max-width: 360px) {

@@ -59,11 +59,18 @@ function Navbar() {
 
         <Link
           to="/explore"
-          style={getStyles(isMobile).link}
-          onMouseEnter={(e) => (e.target.style.color = "#a78bfa")}
-          onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
+          style={getStyles(isMobile).aiLink}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.1)";
+            e.currentTarget.style.filter = "brightness(1.3)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.filter = "brightness(1)";
+          }}
         >
-          Explore
+          ✨ EXPLORE{" "}
+          <span style={{ fontSize: "10px", marginLeft: "1px" }}>AI</span>
         </Link>
 
         {!token && (
@@ -149,6 +156,17 @@ const getStyles = (isMobile) => ({
     fontSize: "inherit",
     fontFamily: "inherit",
     padding: "0",
+  },
+  aiLink: {
+    background: "linear-gradient(90deg, #facc15, #f59e0b)", // yellow → amber
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    fontWeight: "700",
+    position: "relative",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+    animation: "yellowGlow 2s infinite",
+    fontSize: isMobile ? "13px" : "14px",
   },
 });
 
