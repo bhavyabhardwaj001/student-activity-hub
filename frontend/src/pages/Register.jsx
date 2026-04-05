@@ -104,7 +104,7 @@ function Register() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          Join the Hub ✨
+          Join the Hub
         </motion.h2>
 
         <form onSubmit={handleSubmit} className="login-form">

@@ -103,7 +103,7 @@ function Login() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          Welcome Back ✨
+          Welcome Back 
         </motion.h2>
 
         <form onSubmit={handleSubmit} className="login-form">

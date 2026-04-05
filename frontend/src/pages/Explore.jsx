@@ -120,7 +120,8 @@ const mockEvents = [
     aiRecommended: true,
     date: new Date("2026-05-01"),
     location: "Ravinder Bhavan, Bhopal",
-    description: "Step into a world where music isn’t just heard—it’s felt. The Bhuwin Experience is more than just a concert; it’s an intimate journey through sound, emotions, and live-looping magic.",
+    description:
+      "Step into a world where music isn’t just heard—it’s felt. The Bhuwin Experience is more than just a concert; it’s an intimate journey through sound, emotions, and live-looping magic.",
     imageUrl:
       "https://assets-in.bmscdn.com/nmcms/desktop/media-desktop-bhuwin-experience-noor-e-daastaan-2026-2-21-t-10-15-14.jpg",
     url: "https://in.bookmyshow.com/events/bhuwin-experience/ET00438419",
@@ -167,7 +168,7 @@ const mockEvents = [
 const exploreLinks = [
   {
     title: "BookMyShow",
-    url: "https://in.bookmyshow.com/",
+    url: "https://in.bookmyshow.com/explore/events-bhopal?cat=CT",
     desc: "Discover more events on BookMyShow",
   },
   {
