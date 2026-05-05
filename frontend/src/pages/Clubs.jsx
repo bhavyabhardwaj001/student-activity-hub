@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { apiUrl } from "../api";
 import "../App.css";
 
 function Clubs() {
@@ -17,7 +18,7 @@ function Clubs() {
   }, []);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/clubs`)
+    fetch(apiUrl("/api/clubs"))
       .then((res) => res.json())
       .then((data) => setClubs(data))
       .catch((err) => console.error(err));

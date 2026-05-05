@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { apiUrl } from "../api";
 import "../App.css";
 
 function MyEvents() {
@@ -20,7 +21,7 @@ function MyEvents() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch(`${import.meta.env.VITE_API_URL}/api/events/my-events`, {
+    fetch(apiUrl("/api/events/my-events"), {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -56,7 +57,7 @@ function MyEvents() {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/events/${eventId}/unregister`,
+        apiUrl(`/api/events/${eventId}/unregister`),
         {
           method: "POST",
           headers: {

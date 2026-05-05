@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { apiUrl } from "../api";
 import "../App.css";
 
 function Register() {
@@ -22,7 +23,7 @@ function Register() {
     setError("");
     setLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
+      const res = await fetch(apiUrl("/api/auth/register"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

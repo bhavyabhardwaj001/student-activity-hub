@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { apiUrl } from "../api";
 import "../App.css";
 import DemoPaymentModal from "../components/DemoPaymentModal";
 
@@ -222,7 +223,7 @@ export default function Explore() {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/events/${eventId}/register`,
+        apiUrl(`/api/events/${eventId}/register`),
         {
           method: "POST",
           headers: {

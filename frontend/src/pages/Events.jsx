@@ -2,6 +2,7 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { apiUrl } from "../api";
 import "../App.css";
 import DemoPaymentModal from "../components/DemoPaymentModal";
 
@@ -22,7 +23,7 @@ function Events() {
   }, []);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/events`)
+    fetch(apiUrl("/api/events"))
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);
@@ -61,7 +62,7 @@ function Events() {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/events/${eventId}/register`,
+        apiUrl(`/api/events/${eventId}/register`),
         {
           method: "POST",
           headers: {
