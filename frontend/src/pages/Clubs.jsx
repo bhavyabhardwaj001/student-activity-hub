@@ -17,7 +17,7 @@ function Clubs() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/clubs")
+    fetch("https://student-activity-hub.onrender.com/api/clubs")
       .then((res) => res.json())
       .then((data) => setClubs(data))
       .catch((err) => console.error(err));

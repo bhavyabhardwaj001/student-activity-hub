@@ -20,7 +20,7 @@ function MyEvents() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:5000/api/events/my-events", {
+    fetch("https://student-activity-hub.onrender.com/api/events/my-events", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -56,7 +56,7 @@ function MyEvents() {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/events/${eventId}/unregister`,
+        `https://student-activity-hub.onrender.com/api/events/${eventId}/unregister`,
         {
           method: "POST",
           headers: {

@@ -22,7 +22,7 @@ function Events() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/events")
+    fetch("https://student-activity-hub.onrender.com/api/events")
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);
@@ -61,7 +61,7 @@ function Events() {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/events/${eventId}/register`,
+        `https://student-activity-hub.onrender.com/api/events/${eventId}/register`,
         {
           method: "POST",
           headers: {

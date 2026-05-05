@@ -222,7 +222,7 @@ export default function Explore() {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/events/${eventId}/register`,
+        `https://student-activity-hub.onrender.com/api/events/${eventId}/register`,
         {
           method: "POST",
           headers: {
