@@ -1,109 +1,98 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      const nextIsMobile = window.innerWidth < 768;
+      setIsMobile(nextIsMobile);
+
+      if (!nextIsMobile) {
+        setMenuOpen(false);
+      }
     };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
+    setMenuOpen(false);
     navigate("/login");
   };
+
   const token = localStorage.getItem("token");
+  const navItems = [
+    { to: "/", label: "Home" },
+    { to: "/events", label: "Events" },
+    { to: "/my-events", label: "My Events" },
+    { to: "/clubs", label: "Clubs" },
+    { to: "/explore", label: "Explore AI", isFeatured: true },
+  ];
+
+  if (!token) {
+    navItems.push(
+      { to: "/login", label: "Login" },
+      { to: "/register", label: "Register" },
+    );
+  }
+
+  const styles = getStyles(isMobile);
+
   return (
-    <nav style={getStyles(isMobile).nav}>
-      <h2 style={getStyles(isMobile).logo}>Student Activities Hub</h2>
+    <nav style={styles.nav}>
+      <Link to="/" style={styles.logoLink}>
+        <h2 style={styles.logo}>Student Activities Hub</h2>
+      </Link>
 
-      <div style={getStyles(isMobile).links}>
-        <Link
-          to="/"
-          style={getStyles(isMobile).link}
-          onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
-          onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
+      {isMobile && (
+        <button
+          type="button"
+          style={styles.menuButton}
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
         >
-          Home
-        </Link>
-        <Link
-          to="/events"
-          style={getStyles(isMobile).link}
-          onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
-          onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
-        >
-          Events
-        </Link>
-        <Link
-          to="/my-events"
-          style={getStyles(isMobile).link}
-          onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
-          onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
-        >
-          My Events
-        </Link>
-        <Link
-          to="/clubs"
-          style={getStyles(isMobile).link}
-          onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
-          onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
-        >
-          Clubs
-        </Link>
+          <span style={styles.menuBar}></span>
+          <span style={styles.menuBar}></span>
+          <span style={styles.menuBar}></span>
+        </button>
+      )}
 
-        <Link
-          to="/explore"
-          style={getStyles(isMobile).aiLink}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "scale(1.1)";
-            e.currentTarget.style.filter = "brightness(1.3)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "scale(1)";
-            e.currentTarget.style.filter = "brightness(1)";
-          }}
-        >
-          ✨ EXPLORE{" "}
-          <span style={{ fontSize: "10px", marginLeft: "1px" }}>AI</span>
-        </Link>
-
-        {!token && (
+      <div
+        style={{
+          ...styles.links,
+          ...(isMobile && !menuOpen ? styles.linksClosed : {}),
+        }}
+      >
+        {navItems.map((item) => (
           <Link
-            to="/login"
-            style={getStyles(isMobile).link}
-            onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
-            onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
+            key={item.to}
+            to={item.to}
+            style={{
+              ...styles.link,
+              ...(item.isFeatured ? styles.featuredLink : {}),
+              ...(location.pathname === item.to ? styles.activeLink : {}),
+            }}
           >
-            Login
+            {item.label}
           </Link>
-        )}
-
-        {!token && (
-          <Link
-            to="/register"
-            style={getStyles(isMobile).link}
-            onMouseEnter={(e) => (e.target.style.color = "#fbbf24")}
-            onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
-          >
-            Register
-          </Link>
-        )}
+        ))}
 
         {token && (
-          <span
-            style={getStyles(isMobile).link}
-            onClick={handleLogout}
-            onMouseEnter={(e) => (e.target.style.color = "#ff0000")}
-            onMouseLeave={(e) => (e.target.style.color = "#e2e8f0")}
-          >
+          <button type="button" style={styles.logout} onClick={handleLogout}>
             Logout
-          </span>
+          </button>
         )}
       </div>
     </nav>
@@ -118,58 +107,115 @@ const getStyles = (isMobile) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    gap: "16px",
+    minHeight: isMobile ? "58px" : "64px",
     padding: isMobile ? "10px 16px" : "12px 40px",
     backdropFilter: "blur(12px)",
     background:
-      "linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 58, 138, 0.8))",
+      "linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 58, 138, 0.9))",
     borderBottom: "1px solid rgba(37, 99, 235, 0.3)",
     boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
   },
+  logoLink: {
+    color: "white",
+    textDecoration: "none",
+    minWidth: 0,
+  },
   logo: {
     margin: 0,
-    fontSize: isMobile ? "16px" : "22px",
+    fontSize: isMobile ? "17px" : "22px",
     fontWeight: "700",
-    letterSpacing: "0.5px",
+    letterSpacing: 0,
     color: "white",
-    whiteSpace: isMobile ? "nowrap" : "normal",
+    lineHeight: 1.15,
+    whiteSpace: "normal",
   },
   links: {
     display: "flex",
-    gap: isMobile ? "10px" : "20px",
-    flexWrap: isMobile ? "wrap" : "nowrap",
+    gap: isMobile ? "8px" : "20px",
+    flexWrap: "nowrap",
+    alignItems: isMobile ? "stretch" : "center",
+    ...(isMobile
+      ? {
+          position: "absolute",
+          top: "100%",
+          left: 0,
+          right: 0,
+          flexDirection: "column",
+          padding: "10px 16px 14px",
+          background: "rgba(15, 23, 42, 0.98)",
+          borderBottom: "1px solid rgba(37, 99, 235, 0.28)",
+          boxShadow: "0 12px 24px rgba(15, 23, 42, 0.18)",
+        }
+      : {}),
+  },
+  linksClosed: {
+    display: "none",
   },
   link: {
     color: "#e2e8f0",
     textDecoration: "none",
     fontWeight: "500",
     transition: "all 0.2s ease",
-    fontSize: isMobile ? "13px" : "14px",
+    fontSize: isMobile ? "15px" : "14px",
     cursor: "pointer",
+    padding: isMobile ? "12px 10px" : "6px 0",
+    borderRadius: isMobile ? "8px" : 0,
+    lineHeight: 1.2,
+    minHeight: isMobile ? "44px" : "auto",
+    display: "flex",
+    alignItems: "center",
+    ...(isMobile
+      ? {
+          color: "#f8fafc",
+          background: "rgba(255, 255, 255, 0.05)",
+        }
+      : {}),
+  },
+  activeLink: {
+    color: isMobile ? "#ffffff" : "#fbbf24",
+    background: isMobile ? "rgba(37, 99, 235, 0.34)" : "transparent",
+  },
+  featuredLink: {
+    color: "#fbbf24",
+    fontWeight: "700",
+    animation: "yellowGlow 2s infinite",
   },
   logout: {
-    color: "white",
+    color: "#fecaca",
     textDecoration: "none",
     fontWeight: "500",
-    background: "none",
-    border: "none",
+    background: isMobile ? "rgba(239, 68, 68, 0.12)" : "none",
+    border: isMobile ? "1px solid rgba(248, 113, 113, 0.25)" : "none",
+    borderRadius: isMobile ? "8px" : 0,
     cursor: "pointer",
-    fontSize: "inherit",
+    fontSize: isMobile ? "15px" : "14px",
     fontFamily: "inherit",
-    padding: "0",
+    padding: isMobile ? "12px 10px" : "6px 0",
+    textAlign: "left",
+    minHeight: isMobile ? "44px" : "auto",
   },
-  aiLink: {
-    background: "linear-gradient(90deg, #facc15, #f59e0b)", // yellow → amber
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-    fontWeight: "700",
-    position: "relative",
+  menuButton: {
+    width: "44px",
+    height: "44px",
+    display: "inline-flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "5px",
+    padding: 0,
+    border: "1px solid rgba(255, 255, 255, 0.18)",
+    borderRadius: "8px",
+    background: "rgba(255, 255, 255, 0.08)",
     cursor: "pointer",
-    transition: "all 0.3s ease",
-    animation: "yellowGlow 2s infinite",
-    fontSize: isMobile ? "13px" : "14px",
+    flexShrink: 0,
+  },
+  menuBar: {
+    width: "20px",
+    height: "2px",
+    borderRadius: "999px",
+    background: "#ffffff",
   },
 });
-
-const styles = getStyles(false);
 
 export default Navbar;

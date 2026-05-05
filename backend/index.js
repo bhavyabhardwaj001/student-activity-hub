@@ -4,6 +4,15 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
+const requiredEnvVars = ["MONGO_URI", "JWT_SECRET"];
+const missingEnvVars = requiredEnvVars.filter((key) => !process.env[key]);
+
+if (missingEnvVars.length > 0) {
+  console.error(
+    `Missing required environment variable(s): ${missingEnvVars.join(", ")}`
+  );
+  process.exit(1);
+}
 
 // ✅ ENABLE CORS FIRST
 app.use(cors());

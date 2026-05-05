@@ -11,6 +11,27 @@
   pointer-events: none;
   z-index: 1;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+}
+
 /* --- Magical Login Page Styles --- */
 .login-bg {
   position: fixed;
@@ -61,8 +82,7 @@
 .login-glass-card {
   position: relative;
   z-index: 2;
-  min-width: 340px;
-  max-width: 400px;
+  width: min(400px, calc(100vw - 32px));
   padding: 40px 32px 32px 32px;
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.65);
@@ -171,8 +191,18 @@
 
 @media (max-width: 600px) {
   .login-glass-card {
-    min-width: 90vw;
-    padding: 28px 8vw 24px 8vw;
+    width: calc(100vw - 24px);
+    padding: 28px 20px 24px;
+    border-radius: 18px;
+  }
+
+  .login-glass-card h2 {
+    font-size: 1.75rem;
+    margin-bottom: 22px;
+  }
+
+  .login-form {
+    gap: 18px;
   }
 }
 /* Global styles */
