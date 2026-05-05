@@ -7,6 +7,7 @@ import "../App.css";
 function MyEvents() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -26,13 +27,28 @@ function MyEvents() {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((res) => res.json())
+      .then(async (res) => {
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Failed to load your events");
+        }
+
+        if (!Array.isArray(data)) {
+          throw new Error("Unexpected response while loading your events");
+        }
+
+        return data;
+      })
       .then((data) => {
         setEvents(data);
+        setError("");
         setLoading(false);
       })
       .catch((err) => {
         console.error(err);
+        setEvents([]);
+        setError(err.message || "Something went wrong while loading events");
         setLoading(false);
       });
   }, []);
@@ -72,7 +88,9 @@ function MyEvents() {
         alert("Unregistered successfully");
 
         // remove event from list without refreshing
-        setEvents(events.filter((event) => event._id !== eventId));
+        setEvents((currentEvents) =>
+          currentEvents.filter((event) => event._id !== eventId),
+        );
       } else {
         alert(data.message || "Failed to unregister");
       }
@@ -99,7 +117,11 @@ function MyEvents() {
           <p style={getStyles(isMobile).loadingText}>Loading events...</p>
         )}
 
-        {!loading && events.length === 0 && (
+        {!loading && error && (
+          <p style={getStyles(isMobile).errorText}>{error}</p>
+        )}
+
+        {!loading && !error && events.length === 0 && (
           <p style={getStyles(isMobile).loadingText}>
             You have not registered for any events yet.
           </p>
@@ -278,6 +300,12 @@ const getStyles = (isMobile) => ({
     textAlign: "center",
     fontSize: isMobile ? "14px" : "16px",
     color: "#64748b",
+    padding: isMobile ? "20px 12px" : "40px 20px",
+  },
+  errorText: {
+    textAlign: "center",
+    fontSize: isMobile ? "14px" : "16px",
+    color: "#dc2626",
     padding: isMobile ? "20px 12px" : "40px 20px",
   },
 });
