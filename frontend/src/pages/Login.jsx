@@ -27,7 +27,9 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await res.json();
+      const data = await res
+        .json()
+        .catch(() => ({ message: "Server returned an invalid response" }));
 
       if (res.ok) {
         localStorage.setItem("token", data.token);

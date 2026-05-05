@@ -5,6 +5,18 @@ const User = require("../models/user");
 
 const router = express.Router();
 
+const createToken = (user) => {
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET is not configured");
+  }
+
+  return jwt.sign(
+    { id: user._id, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" },
+  );
+};
+
 // REGISTER
 router.post("/register", async (req, res) => {
   try {
@@ -17,7 +29,7 @@ router.post("/register", async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
+    await User.create({
       name,
       email,
       password: hashedPassword,
@@ -26,6 +38,7 @@ router.post("/register", async (req, res) => {
 
     res.json({ message: "User registered successfully" });
   } catch (error) {
+    console.error("Register error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -38,17 +51,21 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      const token = jwt.sign(
-        { id: user._id, role: user.role },
-        process.env.JWT_SECRET,
-        { expiresIn: "7d" }
-      );
+      const token = createToken(user);
 
       res.json({ token });
     } else {
       res.status(401).json({ message: "Invalid credentials" });
     }
   } catch (error) {
+    console.error("Login error:", error);
+
+    if (error.message === "JWT_SECRET is not configured") {
+      return res.status(500).json({
+        message: "Authentication is not configured on the server",
+      });
+    }
+
     res.status(500).json({ message: "Server error" });
   }
 });
