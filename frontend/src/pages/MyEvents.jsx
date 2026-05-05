@@ -20,7 +20,7 @@ function MyEvents() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("https://student-activity-hub.onrender.com/api/events/my-events", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/events/my-events`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -56,7 +56,7 @@ function MyEvents() {
 
     try {
       const res = await fetch(
-        `https://student-activity-hub.onrender.com/api/events/${eventId}/unregister`,
+        `${import.meta.env.VITE_API_URL}/api/events/${eventId}/unregister`,
         {
           method: "POST",
           headers: {

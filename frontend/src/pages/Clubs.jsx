@@ -17,7 +17,7 @@ function Clubs() {
   }, []);
 
   useEffect(() => {
-    fetch("https://student-activity-hub.onrender.com/api/clubs")
+    fetch(`${import.meta.env.VITE_API_URL}/api/clubs`)
       .then((res) => res.json())
       .then((data) => setClubs(data))
       .catch((err) => console.error(err));

@@ -22,7 +22,7 @@ function Register() {
     setError("");
     setLoading(true);
     try {
-      const res = await fetch("https://student-activity-hub.onrender.com/api/auth/register", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

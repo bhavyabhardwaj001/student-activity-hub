@@ -222,7 +222,7 @@ export default function Explore() {
 
     try {
       const res = await fetch(
-        `https://student-activity-hub.onrender.com/api/events/${eventId}/register`,
+        `${import.meta.env.VITE_API_URL}/api/events/${eventId}/register`,
         {
           method: "POST",
           headers: {

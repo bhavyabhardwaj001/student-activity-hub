@@ -22,7 +22,7 @@ function Events() {
   }, []);
 
   useEffect(() => {
-    fetch("https://student-activity-hub.onrender.com/api/events")
+    fetch(`${import.meta.env.VITE_API_URL}/api/events`)
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);
@@ -61,7 +61,7 @@ function Events() {
 
     try {
       const res = await fetch(
-        `https://student-activity-hub.onrender.com/api/events/${eventId}/register`,
+        `${import.meta.env.VITE_API_URL}/api/events/${eventId}/register`,
         {
           method: "POST",
           headers: {
